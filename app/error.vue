@@ -14,12 +14,15 @@ useHead(() => ({ htmlAttrs: { lang: head.value.htmlAttrs.lang } }))
 const notFound = computed(() => props.error.statusCode === 404)
 const copy = computed(() => (notFound.value ? 'notFound' : 'failed'))
 
+// The tab names the site, as other pages' titles do.
+useHead({ titleTemplate: '%s' })
 useSeoMeta({
-  title: () => t(`error.${copy.value}.title`),
+  title: () => t(`error.${copy.value}.pageTitle`),
   robots: 'noindex',
 })
 
-// Cards point only at pages that exist; the home card is always there.
+// Cards point only at pages that exist; the home card is always there. When /docs is built, check it has
+// search, or change error.cards.docs.link to "Read the docs".
 const cards = computed(() => [
   { id: 'home', tone: 'accent', to: '/' },
   { id: 'docs', tone: 'card', to: '/docs' },

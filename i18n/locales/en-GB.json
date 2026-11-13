@@ -260,11 +260,13 @@
   "error": {
     "notFound": {
       "title": "This page isn't here",
-      "lead": "The link may be out of date, or the page may have moved."
+      "lead": "The link may be out of date, or the page may have moved.",
+      "pageTitle": "This page isn't here {'|'} Reeve"
     },
     "failed": {
       "title": "Something went wrong",
-      "lead": "We couldn't show this page. Reload it to try again."
+      "lead": "We couldn't show this page. Reload it to try again.",
+      "pageTitle": "Something went wrong {'|'} Reeve"
     },
     "cards": {
       "home": {

@@ -4,7 +4,7 @@ test('an unknown page answers 404 with the not-found page', async ({ page }) => 
   const response = await page.goto('/no-such-page')
   expect(response?.status()).toBe(404)
   await expect(page.locator('html')).toHaveAttribute('lang', 'en-GB')
-  await expect(page).toHaveTitle(/This page isn't here/)
+  await expect(page).toHaveTitle('This page isn\'t here | Reeve')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('This page isn\'t here')
   await expect(page.getByRole('banner')).toBeVisible()
   await expect(page.getByRole('contentinfo')).toBeVisible()
