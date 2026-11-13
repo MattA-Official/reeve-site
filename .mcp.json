@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "nuxt": {
+      "type": "http",
+      "url": "https://nuxt.com/mcp"
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": ".claude/scripts/playwright-mcp.sh",
+      "args": []
+    }
+  }
+}

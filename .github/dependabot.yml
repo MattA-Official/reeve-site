@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    versioning-strategy: increase
+    open-pull-requests-limit: 5
+    groups:
+      nuxt:
+        patterns: ["nuxt", "@nuxt/*", "@nuxtjs/*", "nuxt-*"]
+      testing:
+        patterns: ["vitest", "@vitest/*", "@playwright/*", "@vue/test-utils", "happy-dom"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
