@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
+// The home page title is the site name alone, without the "| Reeve" suffix.
+useHead({ titleTemplate: '%s' })
 useSeoMeta({
   title: () => t('site.name'),
   description: () => t('site.description'),

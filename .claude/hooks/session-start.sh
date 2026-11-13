@@ -17,6 +17,17 @@ fi
 [[ -n "$want_bun" && "$have_bun" != "$want_bun" ]] && echo "Bun ${have_bun} is installed but the repo pins ${want_bun}. Results may differ from CI."
 echo "Toolchain: Bun ${have_bun}, Node ${node_ver} (CI uses Node 24)."
 
+# Point Playwright at a preinstalled Chromium (cloud containers ship one) for the rest of the session.
+if [[ -z "${PLAYWRIGHT_CHROMIUM_PATH:-}" && -n "${CLAUDE_ENV_FILE:-}" ]]; then
+  for candidate in /opt/pw-browsers/chromium-*/chrome-linux64/chrome; do
+    if [[ -x "$candidate" ]]; then
+      echo "export PLAYWRIGHT_CHROMIUM_PATH=\"$candidate\"" >> "$CLAUDE_ENV_FILE"
+      echo "Playwright will use the preinstalled Chromium at $candidate."
+      break
+    fi
+  done
+fi
+
 if [[ ! -d node_modules || bun.lock -nt node_modules ]]; then
   if out=$(bun install --frozen-lockfile 2>&1); then
     echo "Dependencies installed from bun.lock."

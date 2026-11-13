@@ -6,8 +6,8 @@
     },
     "playwright": {
       "type": "stdio",
-      "command": "bunx",
-      "args": ["@playwright/mcp@0.0.84", "--headless", "--isolated"]
+      "command": ".claude/scripts/playwright-mcp.sh",
+      "args": []
     }
   }
 }

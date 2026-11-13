@@ -18,7 +18,7 @@
     "typecheck": "nuxt typecheck",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test",
+    "test:e2e": "nuxt generate && playwright test",
     "check": "bun run lint && bun run typecheck && bun run test && bun run generate"
   },
   "dependencies": {

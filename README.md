@@ -19,7 +19,7 @@ bun run dev
 | `bun run lint` | ESLint, which also handles formatting |
 | `bun run typecheck` | Vue and TypeScript type checks |
 | `bun run test` | Unit and component tests (Vitest) |
-| `bun run test:e2e` | Browser tests at 1440px and 390px (Playwright) |
+| `bun run test:e2e` | Builds the site, then runs browser tests on the prerendered output at 1440px and 390px (Playwright) |
 | `bun run generate` | Builds the static site into `.output/public` |
 | `bun run check` | Lint, types, unit tests and the static build, as CI runs them |
 

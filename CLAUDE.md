@@ -15,7 +15,7 @@ The look is **Citation**, laid out as the **bento citation** boards. Read `desig
 | Lint (ESLint does formatting too; there is no Prettier) | `bun run lint`, `bun run lint:fix` |
 | Types | `bun run typecheck` |
 | Unit and component tests (Vitest) | `bun run test` |
-| Browser tests at 1440px and 390px (Playwright) | `bun run test:e2e` |
+| Build, then browser tests on the prerendered site at 1440px and 390px (Playwright) | `bun run test:e2e` |
 | Static build | `bun run generate` |
 | Everything CI runs | `bun run check` |
 

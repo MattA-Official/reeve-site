@@ -1,9 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "nuxt",
+    "playwright"
+  ],
   "permissions": {
     "allow": [
-      "Bash(bun install:*)",
+      "Bash(bun install --frozen-lockfile)",
+      "Bash(bunx nuxi prepare)",
+      "Bash(bunx nuxi typecheck)",
       "Bash(bun run dev:*)",
       "Bash(bun run lint:*)",
       "Bash(bun run lint\\:fix:*)",
@@ -14,7 +19,6 @@
       "Bash(bun run build:*)",
       "Bash(bun run preview:*)",
       "Bash(bun run check:*)",
-      "Bash(bunx nuxi:*)",
       "Bash(bunx playwright test:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",

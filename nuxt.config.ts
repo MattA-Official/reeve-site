@@ -1,8 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 // The domain is not decided yet. `.invalid` is reserved and can never resolve,
 // so nothing built with the fallback can be mistaken for the real site.
-// Set NUXT_PUBLIC_SITE_URL once the domain is chosen.
-const siteUrl = process.env.NUXT_PUBLIC_SITE_URL ?? 'https://reeve.invalid'
+// Set NUXT_PUBLIC_SITE_URL once the domain is chosen. An empty value counts as unset.
+const configuredUrl = process.env.NUXT_PUBLIC_SITE_URL?.trim()
+const siteUrl = configuredUrl || 'https://reeve.invalid'
 
 export default defineNuxtConfig({
   modules: [
@@ -24,6 +25,8 @@ export default defineNuxtConfig({
     url: siteUrl,
     name: 'Reeve',
     defaultLocale: 'en-GB',
+    // Only a build for the real domain may be indexed.
+    indexable: Boolean(configuredUrl),
   },
 
   content: {
@@ -78,6 +81,18 @@ export default defineNuxtConfig({
   // OG images are switched on when the page designs are built.
   ogImage: {
     enabled: false,
+  },
+
+  security: {
+    headers: {
+      contentSecurityPolicy: {
+        // Fonts are self-hosted and there are no third-party styles.
+        'style-src': ['\'self\'', '\'unsafe-inline\''],
+        'font-src': ['\'self\'', 'data:'],
+      },
+    },
+    // Nuxt 4.6 builds with oxc, which ignores this option's esbuild setting.
+    removeLoggers: false,
   },
 
   sitemap: {

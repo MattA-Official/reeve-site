@@ -11,10 +11,14 @@ root="${CLAUDE_PROJECT_DIR:-.}"
 cd "$root" || exit 0
 [[ -f package.json && -d node_modules ]] || exit 0
 
-# Only run when source, content or config changed since the last commit.
+# Only run when source, content or config changed: uncommitted, or committed on
+# this branch since it left main (sessions often commit before they finish).
+paths=(app server shared layers public content i18n tests '*.ts' '*.mts' '*.mjs' '*.vue' package.json bun.lock)
 if git rev-parse --git-dir >/dev/null 2>&1; then
-  changed=$(git status --porcelain -- app content i18n tests '*.ts' '*.mjs' package.json | wc -l)
-  [[ "$changed" -eq 0 ]] && exit 0
+  uncommitted=$(git status --porcelain -- "${paths[@]}" | wc -l)
+  base=$(git merge-base HEAD origin/main 2>/dev/null || git rev-parse HEAD)
+  committed=$(git diff --name-only "$base" HEAD -- "${paths[@]}" | wc -l)
+  [[ "$uncommitted" -eq 0 && "$committed" -eq 0 ]] && exit 0
 fi
 
 fail() {

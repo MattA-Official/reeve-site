@@ -10,7 +10,8 @@ permissions:
 
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  # Superseded PR runs are cancelled; every run on main finishes.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   check:
@@ -19,6 +20,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-node@v5
         with:
@@ -46,8 +49,8 @@ jobs:
       - name: Install Chromium for Playwright
         run: bunx playwright install --with-deps chromium
 
-      - name: Browser tests (1440px and 390px)
-        run: bun run test:e2e
+      - name: Browser tests on the prerendered site (1440px and 390px)
+        run: bunx playwright test
 
       - name: Upload Playwright report
         if: failure()
