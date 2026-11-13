@@ -10,7 +10,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <main>
+  <main class="rv-main">
     <h1>{{ t('site.name') }}</h1>
     <p>{{ t('site.holding') }}</p>
   </main>

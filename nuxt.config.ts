@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   ],
 
   devtools: { enabled: true },
+  css: ['~/assets/css/tokens.css', '~/assets/css/citation.css', '~/assets/css/site.css'],
 
   site: {
     url: siteUrl,

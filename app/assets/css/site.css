@@ -1,0 +1,12 @@
+/* Site-only rules the design system leaves to each page, taken from the bento citation boards. Tokens only. */
+.rv-page { min-height: 100vh; }
+.rv-main { max-width: var(--content-max); margin: 0 auto; box-sizing: border-box; padding: var(--space-24) var(--space-40) var(--space-40); }
+
+@container rv-page (max-width: 859px) {
+  .rv-main { padding: var(--space-18) var(--space-16) var(--space-32); }
+}
+
+/* The Menu button's + and − are drawn in CSS; give them an empty text alternative so the button's name
+   is just "Menu". The design system's rule sets the same glyphs without one. */
+.rv-menu-btn::after { content: "+" / ""; }
+.rv-menu-btn[aria-expanded="true"]::after { content: "\2212" / ""; }

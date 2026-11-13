@@ -16,6 +16,7 @@ The look is **Citation**, laid out as the **bento citation** boards. Read `desig
 | Types | `bun run typecheck` |
 | Unit and component tests (Vitest) | `bun run test` |
 | Build, then browser tests on the prerendered site at 1440px and 390px (Playwright) | `bun run test:e2e` |
+| Regenerate `app/assets/css/tokens.css` after `design/citation/tokens.json` changes | `bun run tokens` |
 | Static build | `bun run generate` |
 | Everything CI runs | `bun run check` |
 
