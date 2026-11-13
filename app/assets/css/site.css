@@ -95,3 +95,9 @@
 /* A long reference chip wraps as text, with its brackets inline, rather than as a box beside them. */
 .rv-chip-ref { display: inline-block; max-width: 100%; }
 .rv-betaform-notice { margin: 0; font-size: var(--type-note-size); line-height: 1.45; color: var(--back-sub); }
+
+/* Error page (Site-Citation-NotFound): the cards sit a step below the hero. */
+.rv-error-cards { padding-top: var(--space-24); }
+.rv-error-link { margin-top: auto; min-height: var(--target-min); display: inline-flex; align-items: center; align-self: flex-start; font-weight: 700; }
+.rv-tone-accent .rv-error-link { color: var(--accent-fg); }
+.rv-tone-card .rv-error-link { color: var(--link); }

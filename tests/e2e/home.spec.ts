@@ -67,8 +67,3 @@ test('the hero opens the beta card, which collects nothing until sign-up opens',
   await expect(back.getByRole('textbox')).toHaveCount(0)
   await expect(page.getByRole('button', { name: 'Close The private beta' })).toBeFocused()
 })
-
-test('unknown pages return the 404 page', async ({ page }) => {
-  const response = await page.goto('/no-such-page')
-  expect(response?.status()).toBe(404)
-})

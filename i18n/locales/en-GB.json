@@ -256,5 +256,35 @@
       "noticeLink": "Read the privacy notice",
       "honeypot": "Leave this empty"
     }
+  },
+  "error": {
+    "notFound": {
+      "title": "This page isn't here",
+      "lead": "The link may be out of date, or the page may have moved."
+    },
+    "failed": {
+      "title": "Something went wrong",
+      "lead": "We couldn't show this page. Reload it to try again."
+    },
+    "cards": {
+      "home": {
+        "tag": "home",
+        "title": "Start again",
+        "text": "Back to the home page.",
+        "link": "Go home"
+      },
+      "docs": {
+        "tag": "docs",
+        "title": "Looking for a guide?",
+        "text": "Setup, configuration and every command.",
+        "link": "Search the docs"
+      },
+      "help": {
+        "tag": "help",
+        "title": "Still stuck?",
+        "text": "Open a ticket in our support server.",
+        "link": "Get support"
+      }
+    }
   }
 }
