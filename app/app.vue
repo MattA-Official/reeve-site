@@ -10,6 +10,8 @@ useHead(() => ({
 </script>
 
 <template>
+  <!-- Tells screen readers about each client-side page change. -->
+  <NuxtRouteAnnouncer />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
