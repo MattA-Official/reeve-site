@@ -10,3 +10,87 @@
    is just "Menu". The design system's rule sets the same glyphs without one. */
 .rv-menu-btn::after { content: "+" / ""; }
 .rv-menu-btn[aria-expanded="true"]::after { content: "\2212" / ""; }
+
+/* The bento (Bento-Citation-Soon and -Live). FlipGrid sets each item's place for both widths as custom
+   properties, so the first paint is right at any width before any script runs. */
+.rv-bento-cell { min-width: 0; min-height: 0; grid-column: var(--bento-desk-col); grid-row: var(--bento-desk-row); }
+@container rv-page (max-width: 859px) {
+  .rv-bento-cell { grid-column: var(--bento-phone-col); grid-row: var(--bento-phone-row); }
+}
+
+/* The hero is a bento item but not a card: kicker, title, lead and one action, on the page ground. */
+.rv-bento-hero { height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: var(--space-14); padding: var(--space-6) var(--space-24) var(--space-6) var(--space-2); overflow: hidden; }
+.rv-bento-hero h1 { margin: 0; font-weight: 700; font-size: var(--type-title-2xl-size); line-height: 1.06; letter-spacing: -0.01em; }
+.rv-bento-hero p { margin: 0; max-width: var(--lead-measure); font-size: var(--type-prose-size); line-height: 1.5; color: var(--body); }
+.rv-bento-hero .rv-kicker { font-size: var(--type-tag-size); letter-spacing: 0.08em; }
+.rv-bento-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-10) var(--space-20); }
+@container rv-page (max-width: 859px) {
+  .rv-bento-hero { padding: var(--space-4) var(--space-2) var(--space-10); }
+  .rv-bento-hero h1 { font-size: var(--type-title-xl-size); }
+}
+
+/* A call to action quoted on a card front: the board draws it as a small primary button. */
+.rv-chip-cta { border-radius: var(--radius-control); background: var(--accent); color: var(--on-accent); font-weight: 700; }
+
+/* The beta form's back draws its own header, so its close button sits in the corner. */
+.rv-flip-close-corner { position: absolute; top: var(--space-18); right: var(--space-18); }
+
+/* The Live call to action's back: four numbered steps and two links. */
+/* 220px is the board's minimum step width; there is no token for it. */
+.rv-flip-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-10); margin: 0; padding: 0; list-style: none; }
+.rv-flip-steps > li { display: flex; flex-direction: column; gap: var(--space-6); padding: var(--space-14) var(--space-16); border: 1px solid var(--back-rule); border-radius: var(--radius-card); }
+.rv-flip-step-n { font-family: var(--font-mono); font-size: var(--type-tag-size); color: var(--back-label); }
+.rv-flip-step-title { font-size: var(--type-prose-size); font-weight: 700; }
+.rv-flip-step-text { font-size: var(--type-body-s-size); line-height: 1.45; color: var(--back-sub); }
+.rv-flip-links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-10) var(--space-20); margin-top: auto; }
+
+/* BetaForm's sent state and error line, as in the design system's BetaForm preview. */
+.rv-betaform-done-title { font-size: var(--type-title-size); font-weight: 700; }
+.rv-betaform-done-text { font-size: var(--type-body-size); line-height: 1.5; color: var(--back-sub); }
+.rv-betaform-again { align-self: flex-start; }
+.rv-betaform-error { margin: 0; font-size: var(--type-body-s-size); font-weight: 700; line-height: 1.4; color: var(--back-fg); }
+
+/* Accessibility fixes on top of the ported stylesheet.
+   Placeholders on light fills: muted is 3.2:1 on white; back-sub passes 4.5:1. */
+.rv-flip-back .rv-input::placeholder { color: var(--back-sub); opacity: 1; }
+/* Fronts keep their fixed footprint; with larger text spacing (WCAG 1.4.12) they scroll rather than clip. */
+.rv-flip-front { overflow: auto; }
+
+/* Card sizes, the same rules as the design system's rv-flip-lg and rv-flip-compact, keyed to the data
+   attributes FlipGrid writes and to the page's width, so they hold before any script runs.
+   Wide: 2 × 2 and larger fronts are large; 1 × 1 fronts are compact while a card is open, or below
+   breakpoint-nav where the columns are too narrow for a description. Narrow: 1 × 1 fronts are compact, and
+   one-row fronts keep their title and one chip. The FlipCard guidelines allow one line of description too,
+   but at the token sizes (bento-row-narrow 140px) it doesn't fit, so it goes. */
+.rv-flip-desc { font-size: var(--type-note-size); }
+.rv-bento-hero .rv-bento-lead, .rv-bento-hero .rv-bento-actions { display: none; }
+@container rv-page (min-width: 860px) {
+  .rv-bento-cell[data-desk-size="large"] .rv-flip-title { font-size: var(--type-title-2xl-size); }
+  .rv-bento-cell[data-desk-size="large"] .rv-flip-desc { font-size: var(--type-body-size); }
+  .rv-bento-cell[data-desk-wide] .rv-bento-lead { display: block; }
+  .rv-bento-cell[data-desk-wide] .rv-bento-actions { display: flex; }
+  .rv-bento-cell[data-desk-wide] h1 { font-size: var(--type-doc-h1-size); }
+  [data-any-open] > .rv-bento-cell[data-desk-size="small"] .rv-flip-front { padding: var(--space-14); }
+  [data-any-open] > .rv-bento-cell[data-desk-size="small"] .rv-flip-title { font-size: var(--type-flip-title-compact-size); }
+  [data-any-open] > .rv-bento-cell[data-desk-size="small"] .rv-flip-desc { display: none; }
+  .rv-bento-cell[data-desk-size="small"] .rv-chips > :nth-child(n + 2) { display: none; }
+  /* At most two lines of description on a 1 × 1 front, so narrower wide layouts don't overflow. */
+  .rv-bento-cell[data-desk-size="small"] .rv-flip-desc { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+}
+@container rv-page (min-width: 860px) and (max-width: 1119px) {
+  .rv-bento-cell[data-desk-size="small"] .rv-flip-front { padding: var(--space-14); }
+  .rv-bento-cell[data-desk-size="small"] .rv-flip-title { font-size: var(--type-flip-title-compact-size); }
+  .rv-bento-cell[data-desk-size="small"] .rv-flip-desc { display: none; }
+}
+@container rv-page (max-width: 859px) {
+  .rv-bento-hero .rv-bento-actions { display: flex; }
+  .rv-bento-cell[data-phone-size="small"] .rv-flip-front { padding: var(--space-14); }
+  .rv-bento-cell[data-phone-size="small"] .rv-flip-title { font-size: var(--type-flip-title-compact-size); }
+  .rv-bento-cell[data-phone-size="small"] .rv-flip-desc { display: none; }
+  .rv-bento-cell[data-phone-size="small"] .rv-chips > :nth-child(n + 2),
+  .rv-bento-cell[data-phone-size="row"] .rv-chips > :nth-child(n + 2) { display: none; }
+  .rv-bento-cell[data-phone-size="row"] .rv-flip-desc { display: none; }
+}
+
+/* A long reference chip wraps as text, with its brackets inline, rather than as a box beside them. */
+.rv-chip-ref { display: inline-block; max-width: 100%; }

@@ -37,6 +37,13 @@ export default defineNuxtConfig({
     },
   },
 
+  runtimeConfig: {
+    public: {
+      // Where the beta form posts. The sign-up API (NuxtHub) is added in its own PR.
+      betaEndpoint: '/api/beta',
+    },
+  },
+
   compatibilityDate: '2026-11-12',
 
   // Every page is prerendered. Server routes come later, for sign-up and payment.

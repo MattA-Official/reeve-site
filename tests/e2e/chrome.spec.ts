@@ -11,7 +11,7 @@ test('the page has the site header and footer landmarks', async ({ page }) => {
 // tests/nuxt/site-chrome.test.ts covers the menu.
 test('the header shows the private beta badge only on wide screens', async ({ page, isMobile }) => {
   await page.goto('/')
-  const badge = page.getByText('private beta')
+  const badge = page.getByRole('banner').getByText('private beta')
   if (isMobile) await expect(badge).toBeHidden()
   else await expect(badge).toBeVisible()
 })

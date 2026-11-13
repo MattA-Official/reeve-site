@@ -12,7 +12,7 @@ paths:
 - "We" is the company, "you" is the owner or moderator reading, "members" are the community. Name the person who acts.
 - Buttons are a verb and an object. Never "Submit", "OK" or "Click here".
 - Prices: "£24 a month", "£240 a year", always with "Prices exclude VAT, which is added at checkout where it applies." Before launch, an undecided price reads "Planned".
-- AI: say what the model sees and the three things it may do alone (delete a message, hold back an attachment, time out for up to an hour), and that a person can undo each.
+- AI: say what the model sees and the two things it may do alone (delete a message, time out for up to an hour), and that a person can undo each. Holding back an attachment is not built yet (Warden ADR 0019).
 - Rules: public numbers only (`Rule 3`), never `3.2.a`, never internal rule text.
 - Design placeholders (`[date]`, `[n]`, `£[price]`, `[COMPANY NAME]`) must not ship. A unit test checks the locale files.
 - Content files live under `content/<locale>/` and every page has `title` and `description` frontmatter. Add a locale by adding a collection in `content.config.ts` and a file in `i18n/locales/`.
