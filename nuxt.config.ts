@@ -47,7 +47,8 @@ export default defineNuxtConfig({
     },
   },
 
-  // About five sign-up requests per IP address every ten minutes. The address is counted in memory for that
+  // A handful of sign-up requests per IP address every ten minutes (nuxt-security lets six through before
+  // answering 429). The address is counted in memory for that
   // window only and never stored or logged. On Workers each instance keeps its own count, so this slows
   // abuse rather than stopping it. Cloudflare's own header is used there, because X-Forwarded-For can be forged.
   routeRules: {

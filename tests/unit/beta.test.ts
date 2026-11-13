@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { isHoneypotFilled, parseBetaRequest, RETENTION, retentionCutoffs } from '../../server/utils/beta'
+import { isHoneypotFilled, parseBetaRequest, requestProblem, RETENTION, retentionCutoffs } from '../../server/utils/beta'
 
 const valid = { server: '  The Reading Room ', role: 'admin', members: 'medium', email: ' Mod@Example.com ' }
 
@@ -17,7 +17,7 @@ describe('beta sign-up validation', () => {
     ['an address over 254 characters', { ...valid, email: `${'x'.repeat(250)}@a.bc` }],
     ['an unknown role', { ...valid, role: 'founder' }],
     ['an unknown size', { ...valid, members: 'huge' }],
-    ['the hidden field filled in', { ...valid, website: 'https://spam.example' }],
+    ['the hidden field filled in', { ...valid, trap: 'https://spam.example' }],
   ])('refuses %s', (_, body) => {
     expect(parseBetaRequest(body)).toBeNull()
   })
@@ -39,9 +39,28 @@ describe('beta sign-up retention', () => {
 
 describe('the honeypot', () => {
   it('is only set off by the hidden field', () => {
-    expect(isHoneypotFilled({ ...valid, website: 'https://spam.example' })).toBe(true)
-    expect(isHoneypotFilled({ ...valid, website: '' })).toBe(false)
+    expect(isHoneypotFilled({ ...valid, trap: 'https://spam.example' })).toBe(true)
+    expect(isHoneypotFilled({ ...valid, trap: '' })).toBe(false)
     expect(isHoneypotFilled(valid)).toBe(false)
     expect(isHoneypotFilled(null)).toBe(false)
+  })
+})
+
+describe('cross-site requests', () => {
+  const json = 'application/json'
+  it('accepts JSON from the site itself, or from a client that is not a browser', () => {
+    expect(requestProblem({ contentType: json, fetchSite: 'same-origin', origin: 'https://reeve.example', host: 'reeve.example' })).toBeNull()
+    expect(requestProblem({ contentType: 'application/json; charset=utf-8' })).toBeNull()
+  })
+
+  it.each([
+    ['a form post', { contentType: 'application/x-www-form-urlencoded' }, 415],
+    ['plain text', { contentType: 'text/plain' }, 415],
+    ['no content type', {}, 415],
+    ['a request a browser marks cross-site', { contentType: json, fetchSite: 'cross-site' }, 403],
+    ['a request from another origin', { contentType: json, origin: 'https://evil.example', host: 'reeve.example' }, 403],
+    ['an origin that is not a URL', { contentType: json, origin: 'null', host: 'reeve.example' }, 403],
+  ])('refuses %s', (_, headers, status) => {
+    expect(requestProblem(headers)).toBe(status)
   })
 })

@@ -34,6 +34,18 @@ The site is built to run on Cloudflare Workers with a D1 database; there is no d
 3. Apply the migrations to D1 before the new code goes live; deploying does not run them. The build copies them to `.output/server/db/migrations/sqlite/` and names them in `.output/server/wrangler.json`, so `wrangler d1 migrations apply DB --remote` run from `.output/server` applies them.
 4. The `beta:purge` task runs daily at 03:00 UTC through the Cron Trigger the build declares, and deletes sign-up requests past their retention: 30 days after a place is offered or declined, and a year after the request at the latest.
 
+### Closing a request
+
+When a place is offered or a request is declined, set `closed_at` so the 30-day clock starts. From `.output/server`, with the server name and address from the request:
+
+```sh
+wrangler d1 execute DB --remote --command "UPDATE beta_requests SET closed_at = unixepoch() WHERE server = '…' AND email = '…'"
+```
+
+### Running somewhere other than Cloudflare
+
+The rate limit on `/api/beta` keys on `CF-Connecting-IP` on Workers. Anywhere else it falls back to `X-Forwarded-For`, which a client can forge, so put the site behind a proxy that overwrites that header.
+
 ## Working with Claude Code
 
 The repo is set up for agentic work:

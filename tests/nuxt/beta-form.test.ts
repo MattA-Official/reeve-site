@@ -65,7 +65,7 @@ describe('BetaForm', () => {
   it('sends the request and says what happens next', async () => {
     const form = await mountSuspended(BetaForm, { props: { index: 9, title: 'Join the beta', kicker: 'private beta' } })
     await fill(form, 'The Reading Room')
-    expect(received).toHaveBeenCalledWith({ server: 'The Reading Room', role: 'admin', members: 'medium', email: 'mod@example.com', website: '' })
+    expect(received).toHaveBeenCalledWith({ server: 'The Reading Room', role: 'admin', members: 'medium', email: 'mod@example.com', trap: '' })
     const done = form.get('[role="status"]')
     expect(done.text()).toContain('You\'re on the list.')
     expect(done.text()).toContain('We\'ll email mod@example.com when a place opens for The Reading Room.')

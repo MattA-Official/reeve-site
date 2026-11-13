@@ -16,9 +16,10 @@ export const RETENTION = { afterClose: 30 * DAY, maximum: 365 * DAY }
 // A deliberately plain check: one @, something either side, a dot in the domain, no spaces.
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-// `website` is a field people can't see; only bots fill it in.
+// `trap` is a field people can't see; only bots fill it in. It isn't called anything autofill knows,
+// so a browser won't fill it for a real person.
 export function isHoneypotFilled(body: unknown): boolean {
-  return Boolean(body && typeof body === 'object' && (body as Record<string, unknown>).website)
+  return Boolean(body && typeof body === 'object' && (body as Record<string, unknown>).trap)
 }
 
 export function parseBetaRequest(body: unknown): BetaRequest | null {
@@ -38,4 +39,22 @@ export function retentionCutoffs(now: Date) {
     closedBefore: new Date(now.getTime() - RETENTION.afterClose),
     createdBefore: new Date(now.getTime() - RETENTION.maximum),
   }
+}
+
+// Turns away requests another site could send on a visitor's behalf. A plain HTML form can't send JSON,
+// and a cross-site script sending JSON triggers a CORS preflight that fails. Browsers also say where a
+// request came from: anything they mark as cross-site is refused. Clients that aren't browsers send
+// neither header and are left to validation and the rate limit.
+export function requestProblem(headers: { contentType?: string, fetchSite?: string, origin?: string, host?: string }): 415 | 403 | null {
+  if (!headers.contentType?.toLowerCase().startsWith('application/json')) return 415
+  if (headers.fetchSite && headers.fetchSite !== 'same-origin') return 403
+  if (headers.origin && headers.host) {
+    try {
+      if (new URL(headers.origin).host !== headers.host) return 403
+    }
+    catch {
+      return 403
+    }
+  }
+  return null
 }

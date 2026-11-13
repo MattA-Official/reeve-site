@@ -8,7 +8,7 @@ const { reeve } = useAppConfig()
 
 const localePath = useLocalePath()
 const server = ref('')
-const website = ref('')
+const trap = ref('')
 const role = ref<'owner' | 'admin' | 'moderator'>('owner')
 const members = ref<'small' | 'medium' | 'large'>('small')
 const email = ref('')
@@ -23,7 +23,7 @@ async function submit() {
   try {
     await $fetch(betaEndpoint, {
       method: 'POST',
-      body: { server: server.value.trim(), role: role.value, members: members.value, email: email.value.trim(), website: website.value },
+      body: { server: server.value.trim(), role: role.value, members: members.value, email: email.value.trim(), trap: trap.value },
     })
     sent.value = { server: server.value.trim(), email: email.value.trim() }
     state.value = 'sent'
@@ -101,14 +101,14 @@ async function again() {
         maxlength="254"
         :placeholder="t('home.beta.emailExample')"
       ></label>
-      <!-- Hidden from people and assistive technology; only bots fill it in. -->
+      <!-- Hidden from people and assistive technology; only bots fill it in. The name means nothing to autofill. -->
       <label
         class="rv-sr"
         aria-hidden="true"
       >{{ t('home.beta.honeypot') }}<input
-        v-model="website"
+        v-model="trap"
         type="text"
-        name="website"
+        name="trap"
         tabindex="-1"
         autocomplete="off"
       ></label>

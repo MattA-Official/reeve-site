@@ -43,6 +43,11 @@ jobs:
       - name: Unit and component tests
         run: bun run test
 
+      - name: Build for Cloudflare Workers
+        run: bun run build
+        env:
+          NITRO_PRESET: cloudflare_module
+
       - name: Build
         run: bun run build
 

@@ -3,6 +3,15 @@
 import { db } from 'hub:db'
 
 export default defineEventHandler(async (event) => {
+  const problem = requestProblem({
+    contentType: getRequestHeader(event, 'content-type'),
+    fetchSite: getRequestHeader(event, 'sec-fetch-site'),
+    origin: getRequestHeader(event, 'origin'),
+    host: getRequestHeader(event, 'host'),
+  })
+  if (problem === 415) throw createError({ statusCode: 415, statusMessage: 'Send JSON' })
+  if (problem === 403) throw createError({ statusCode: 403, statusMessage: 'Cross-site requests are not accepted' })
+
   const body = await readBody(event).catch(() => null)
   // A filled honeypot is a bot: answer as if it worked, so the trap isn't obvious, and store nothing.
   if (isHoneypotFilled(body)) {
