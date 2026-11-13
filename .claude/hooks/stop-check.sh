@@ -16,8 +16,13 @@ cd "$root" || exit 0
 paths=(app server shared layers public content i18n tests '*.ts' '*.mts' '*.mjs' '*.vue' package.json bun.lock)
 if git rev-parse --git-dir >/dev/null 2>&1; then
   uncommitted=$(git status --porcelain -- "${paths[@]}" | wc -l)
-  base=$(git merge-base HEAD origin/main 2>/dev/null || git rev-parse HEAD)
-  committed=$(git diff --name-only "$base" HEAD -- "${paths[@]}" | wc -l)
+  if base=$(git merge-base HEAD origin/main 2>/dev/null); then
+    committed=$(git diff --name-only "$base" HEAD -- "${paths[@]}" | wc -l)
+  else
+    # No origin/main to compare with (no remote, or not fetched): check anyway.
+    echo "stop-check: no origin/main ref, so running the checks without comparing to main." >&2
+    committed=1
+  fi
   [[ "$uncommitted" -eq 0 && "$committed" -eq 0 ]] && exit 0
 fi
 

@@ -51,7 +51,9 @@ update_re='(^|[;&|[:space:]])bun[[:space:]]+(update|upgrade)([[:space:]]|$)'
 # unpushed work when the container is reclaimed, so they may push their own
 # claude/* branch, without force. Catches git's global options too
 # (git -C dir push, git --no-pager push).
-push_any_re='(^|[;&|[:space:]])git([[:space:]]+[^;&|]*)?[[:space:]]push([[:space:]]|$)'
+# git's global options are flags (or a flag and its value) before the subcommand,
+# so "git stash push" is not a push.
+push_any_re='(^|[;&|[:space:]])git([[:space:]]+(-[cC][[:space:]]+[^[:space:];&|]+|-[^[:space:];&|]+))*[[:space:]]+push([[:space:]]|$)'
 if [[ "$bare" =~ $push_any_re ]]; then
   push_ok_re='^[[:space:]]*git[[:space:]]+push([[:space:]]+(-u|--set-upstream))?[[:space:]]+origin[[:space:]]+claude/[A-Za-z0-9._/-]+[[:space:]]*$'
   if [[ "${CLAUDE_CODE_REMOTE:-}" != "true" ]] || [[ ! "$cmd" =~ $push_ok_re ]]; then
@@ -72,8 +74,10 @@ print_re='(^|[;&|[:space:]])(echo|printf|cat|printenv)([[:space:]]|$)'
 [[ "$cmd" =~ $secret_re ]] && [[ "$bare" =~ $print_re ]] && block "do not print secret variables."
 
 # Recursive deletes must stay inside the project.
+# Checked on the command with only the quote marks removed, so rm -rf "/" can't hide.
+unquoted=${cmd//[\"\']/}
 rm_re='(^|[;&|[:space:]])rm[[:space:]]+(-[A-Za-z]*[rR][A-Za-z]*)[[:space:]]+([^;&|]+)'
-if [[ "$bare" =~ $rm_re ]]; then
+if [[ "$unquoted" =~ $rm_re ]]; then
   for target in ${BASH_REMATCH[3]}; do
     [[ "$target" == -* ]] && continue
     case "$target" in
