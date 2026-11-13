@@ -9,6 +9,7 @@ paths:
 # Styles
 
 - Values come from the Citation tokens as CSS custom properties. No raw hex, rgb, px sizes or font names outside the token file.
+- `app/assets/css/tokens.css` is generated from `design/citation/tokens.json` by `bun run tokens`; never edit it by hand. `app/assets/css/citation.css` is the design system's `bundle.css`, ported as is (it keeps the type sizes in px, as the design system does): change it only to re-port a newer version. Site-only rules go in `app/assets/css/site.css` or a component's `<style>`.
 - Plain CSS, scoped in components or in `app/assets/css/`. No Tailwind, UI kit or CSS-in-JS.
 - Narrow layout below 860px (`breakpoint-narrow`), keyed to the `.rv-page` container's width, not the viewport. The header nav folds into a Menu button below 1120px (`breakpoint-nav`).
 - Bento: six columns, `space-14` gap (`space-12` narrow). Below 860px, six- and four-column grids become two columns; two- and three-column grids become one.

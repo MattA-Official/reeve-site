@@ -3,5 +3,40 @@
     "name": "Reeve",
     "description": "Moderation for a single Discord community.",
     "holding": "The website is being built. Nothing here is live yet."
+  },
+  "logo": {
+    "label": "Reeve home",
+    "wordmark": "reeve"
+  },
+  "header": {
+    "navLabel": "Site",
+    "badge": "private beta",
+    "menu": "Menu",
+    "joinBeta": "Join the beta",
+    "addToDiscord": "Add to Discord"
+  },
+  "nav": {
+    "howItWorks": "How it works",
+    "ai": "AI moderation",
+    "privacy": "Privacy",
+    "privacyAndTrust": "Privacy and trust",
+    "pricing": "Pricing",
+    "docs": "Docs",
+    "changelog": "Changelog",
+    "status": "Status",
+    "pilot": "The pilot",
+    "pilotWriteUp": "Pilot write-up",
+    "about": "About",
+    "support": "Support",
+    "legal": "Legal",
+    "signIn": "Sign in"
+  },
+  "footer": {
+    "promise": "Moderation your community can trust: every decision recorded, every AI action reversible, every member able to appeal.",
+    "product": { "label": "Product", "head": "product" },
+    "resources": { "label": "Resources", "head": "resources" },
+    "company": { "label": "Company", "head": "company" },
+    "companyLine": "© {year} {name} Ltd · Registered in England and Wales, no. {number}",
+    "notAffiliated": "Reeve is not affiliated with Discord Inc."
   }
 }
