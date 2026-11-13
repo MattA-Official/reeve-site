@@ -4,12 +4,14 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const { footer } = useSiteLinks()
 const { reeve } = useAppConfig()
+// Taken once when the page is rendered and carried in the payload, so hydration never shows a different year.
+const year = useState('build-year', () => new Date().getFullYear())
 
 // The company line appears only once the company's name and number are set in app.config.ts.
 const companyLine = computed(() => {
   const { name, number } = reeve.company
   if (!name || !number) return null
-  return t('footer.companyLine', { year: new Date().getFullYear(), name, number })
+  return t('footer.companyLine', { year: year.value, name, number })
 })
 </script>
 

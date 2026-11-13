@@ -15,6 +15,20 @@ const menuButton = useTemplateRef<HTMLButtonElement>('menuButton')
 watch(() => route.fullPath, () => {
   menuOpen.value = false
 })
+// The menu only shows below breakpoint-nav. If the header widens past it while the menu is open, close the
+// menu so it doesn't reappear open, with aria-expanded still true, when the header narrows again.
+const headerEl = useTemplateRef<HTMLElement>('headerEl')
+let observer: ResizeObserver | undefined
+onMounted(() => {
+  if (!headerEl.value) return
+  const navBreakpoint = Number.parseFloat(getComputedStyle(headerEl.value).getPropertyValue('--breakpoint-nav'))
+  observer = new ResizeObserver(([entry]) => {
+    if (menuOpen.value && entry && entry.contentRect.width >= navBreakpoint) menuOpen.value = false
+  })
+  observer.observe(headerEl.value)
+})
+onBeforeUnmount(() => observer?.disconnect())
+
 function closeOnEscape() {
   if (!menuOpen.value) return
   menuOpen.value = false
@@ -24,6 +38,7 @@ function closeOnEscape() {
 
 <template>
   <header
+    ref="headerEl"
     class="rv-header"
     @keydown.escape="closeOnEscape"
   >

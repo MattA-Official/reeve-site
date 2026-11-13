@@ -3,6 +3,8 @@
 const props = withDefaults(defineProps<{ small?: boolean }>(), { small: false })
 const { t } = useI18n()
 const localePath = useLocalePath()
+// A deliberate exception to "no raw sizes": the design system's Logo gives the mark as SVG width and height
+// attributes (32 in the header, 28 in the footer and docs header), and there is no token for them.
 const markSize = computed(() => (props.small ? 28 : 32))
 </script>
 
