@@ -14,7 +14,7 @@ Check:
 3. Sentence case; lowercase bracketed mono labels; the product is Reeve in prose.
 4. Buttons are a verb and an object.
 5. Prices follow the money rules, carry the VAT note, and read "Planned" before launch.
-6. AI claims match what Warden does: delete a message, hold back an attachment, time out for up to an hour, all undoable by a person; what is pseudonymised before a model sees it. If a claim isn't in the brand book, check it against the Warden repo (`MattA-Official/warden`, `docs/`) and flag anything you can't confirm.
+6. AI claims match what Warden does: delete a message or time out for up to an hour, both undoable by a person (holding back an attachment is not built yet, Warden ADR 0019, so flag any claim of it); what is pseudonymised before a model sees it. If a claim isn't in the brand book, check it against the Warden repo (`MattA-Official/warden`, `docs/`) and flag anything you can't confirm.
 7. Rule references are public numbers only.
 8. No design placeholders, and no copy literals in `.vue` files.
 

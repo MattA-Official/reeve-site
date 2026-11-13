@@ -126,7 +126,7 @@
           "Warnings, timeouts and bans can be appealed; a ban again after 30 days",
           "Before a ban, the member is sent the appeal button first",
           "Someone senior who wasn't involved in the case reviews it",
-          "Appeals against automated actions open at once, the AI's first"
+          "Automated actions can be appealed straight away"
         ]
       },
       "ai": {
@@ -139,7 +139,7 @@
         ],
         "points": [
           "Members' messages are screened first by a model on our own hardware",
-          "Only flagged messages go to a hosted model, with names and IDs replaced",
+          "Flagged messages with a little context, and reports, go to a hosted model with names and IDs replaced",
           "On its own it can delete a message or time out for up to an hour, and a person can undo both",
           "Kicks, bans and role changes are always a person's call"
         ]
@@ -191,7 +191,13 @@
           "title": "Join the beta",
           "desc": "We're opening Reeve to a few servers at a time.",
           "chip": "Request a place",
-          "kicker": "private beta"
+          "kicker": "private beta",
+          "closed": {
+            "chip": "Opening soon",
+            "note": "Requests open here soon.",
+            "hero": "Read about the beta",
+            "title": "The private beta"
+          }
         },
         "live": {
           "title": "Start using Reeve",

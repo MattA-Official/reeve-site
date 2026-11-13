@@ -34,6 +34,16 @@ const chipsFor = (card: (typeof cards)[number]): Chip[] =>
 const cardById = (id: string) => cards.find(card => card.id === id)!
 
 const cta = computed(() => `home.cards.cta.${state.value}`)
+// Before launch, until the sign-up form is on, nothing invites a request that can't be made.
+const signupClosed = computed(() => state.value === 'soon' && !reeve.betaSignup)
+const heroAction = computed(() => {
+  if (state.value === 'live') return t('header.addToDiscord')
+  return signupClosed.value ? t('home.cards.cta.soon.closed.hero') : t('header.joinBeta')
+})
+const ctaTitle = computed(() => (signupClosed.value ? t('home.cards.cta.soon.closed.title') : t(`${cta.value}.title`)))
+const ctaChip = computed<Chip>(() => signupClosed.value
+  ? { text: t('home.cards.cta.soon.closed.chip'), kind: 'plain' }
+  : { text: t(`${cta.value}.chip`), kind: 'cta' })
 const steps = computed(() => (tm('home.cards.cta.live.steps') as unknown as { title: string, text: string }[])
   .map(step => ({ title: rt(step.title), text: rt(step.text) })))
 // Doc links appear once the docs pages exist.
@@ -48,28 +58,24 @@ const docsBuilt = computed(() => isBuilt('/docs'))
       :fixed="['hero']"
       :label="t('home.bento.label')"
     >
-      <template #default="{ id, index, open, size, toggle, openCard }">
+      <template #default="{ id, index, open, toggle, openCard }">
         <div
           v-if="id === 'hero'"
           class="rv-bento-hero"
-          :data-big="!size.narrow && size.width >= 3 && size.height >= 2 ? '' : undefined"
         >
           <span class="rv-kicker">{{ t(`home.hero.kicker.${state}`) }}</span>
           <h1>{{ t('home.hero.title') }}</h1>
-          <p v-if="!size.narrow && size.width >= 3 && size.height >= 2">
+          <p class="rv-bento-lead">
             {{ t(`home.hero.lead.${state}`) }}
           </p>
-          <div
-            v-if="size.narrow || size.width >= 3 && size.height >= 2"
-            class="rv-bento-actions"
-          >
+          <div class="rv-bento-actions">
             <button
               type="button"
               class="rv-btn rv-btn-primary"
               aria-controls="bento-back-cta"
               @click="openCard('cta')"
             >
-              {{ t(state === 'live' ? 'header.addToDiscord' : 'header.joinBeta') }}
+              {{ heroAction }}
             </button>
             <NuxtLink
               v-if="state === 'live' && docsBuilt"
@@ -85,12 +91,12 @@ const docsBuilt = computed(() => isBuilt('/docs'))
           :id="id"
           :index="index"
           tone="ink"
-          :title="t(`${cta}.title`)"
+          :title="ctaTitle"
           :desc="t(`${cta}.desc`)"
-          :chips="[{ text: t(`${cta}.chip`), kind: 'cta' }]"
+          :chips="[ctaChip]"
           :open="open"
-          :back-label="t(`${cta}.title`)"
-          :close-label="t('home.bento.close', { title: t(`${cta}.title`) })"
+          :back-label="ctaTitle"
+          :close-label="t('home.bento.close', { title: ctaTitle })"
           :kicker="t(`${cta}.kicker`)"
           :plain-back="state === 'soon'"
           @toggle="toggle"
@@ -98,7 +104,7 @@ const docsBuilt = computed(() => isBuilt('/docs'))
           <BetaForm
             v-if="state === 'soon'"
             :index="index"
-            :title="t(`${cta}.title`)"
+            :title="ctaTitle"
             :kicker="t(`${cta}.kicker`)"
           />
           <template v-else>
@@ -136,7 +142,6 @@ const docsBuilt = computed(() => isBuilt('/docs'))
           :title="t(`home.cards.${id}.title`)"
           :desc="t(`home.cards.${id}.desc`)"
           :chips="chipsFor(cardById(id))"
-          :single="size.width === 1 && size.height === 1"
           :open="open"
           :back-label="t('home.bento.backLabel', { title: t(`home.cards.${id}.title`) })"
           :close-label="t('home.bento.close', { title: t(`home.cards.${id}.title`) })"

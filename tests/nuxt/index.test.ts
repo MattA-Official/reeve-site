@@ -50,7 +50,7 @@ describe('home page', () => {
   it('the hero action opens the beta card', async () => {
     const page = await mountSuspended(IndexPage)
     await page.get('.rv-bento-actions button').trigger('click')
-    expect(page.get('button[aria-controls="bento-back-cta"]').attributes('aria-expanded')).toBe('true')
+    expect(page.get('button[data-front="cta"]').attributes('aria-expanded')).toBe('true')
   })
   it('after launch, the last card shows the four set-up steps and Add to Discord', async () => {
     Object.assign(useAppConfig().reeve, { launched: true, discordInstallUrl: 'https://discord.com/oauth2/authorize?client_id=1' })

@@ -13,8 +13,6 @@ const props = defineProps<{
   desc: string
   chips: Chip[]
   open: boolean
-  // At most one chip fits a 1 × 1 card.
-  single?: boolean
   backLabel: string
   closeLabel: string
   // The back's own header can be left out (the beta form draws its own).
@@ -24,10 +22,13 @@ const props = defineProps<{
 
 const emit = defineEmits<{ toggle: [] }>()
 const backId = computed(() => `bento-back-${props.id}`)
-const shown = computed(() => (props.single ? props.chips.slice(0, 1) : props.chips.slice(0, 3)))
+// At most three chips; site.css shows only the first on small cards.
+const shown = computed(() => props.chips.slice(0, 3))
 const chipClass = (chip: Chip) => (chip.kind && chip.kind !== 'plain' ? `rv-chip rv-chip-${chip.kind}` : 'rv-chip')
 
 function onKeydown(event: KeyboardEvent) {
+  // Escape in a select closes its list, not the card.
+  if (event.target instanceof HTMLSelectElement) return
   if (event.key === 'Escape' && props.open) emit('toggle')
 }
 </script>

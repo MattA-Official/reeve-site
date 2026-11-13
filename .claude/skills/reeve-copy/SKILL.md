@@ -26,7 +26,7 @@ Keys are nested by page, then region: `pricing.plans.community.price`. Never put
 5. Buttons are a verb and an object: "Join the beta", "Add to Discord", "Compare plans in full".
 6. Status in words: `[working]`, "Paused once in the last 60 days".
 7. Money: "£24 a month", "£240 a year", plus "Prices exclude VAT, which is added at checkout where it applies." Before launch, undecided prices read "Planned".
-8. AI: what the model sees (names, user IDs, mentions and profile links are replaced first), the three things it may do alone (delete a message, hold back an attachment, time a member out for up to an hour), and that a person can undo each.
+8. AI: what the model sees (names, user IDs, mentions and profile links are replaced first), the two things it may do alone (delete a message, time a member out for up to an hour), and that a person can undo each. Holding back an attachment is not built yet (Warden ADR 0019).
 9. Rules: public numbers only.
 
 ## Checking claims

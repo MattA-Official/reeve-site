@@ -50,6 +50,9 @@ async function again() {
       <p v-if="reeve.betaSignup">
         {{ t('home.beta.email') }}
       </p>
+      <p v-else>
+        {{ t('home.cards.cta.soon.closed.note') }}
+      </p>
     </div>
     <template v-if="!reeve.betaSignup" />
     <form
