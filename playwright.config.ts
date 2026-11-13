@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test'
 
 const port = 4173
 
-// Tests run against the prerendered site in .output/public, the files that ship.
+// Tests run against the built server in .output: the prerendered pages and the /api routes that ship.
 // Desktop matches the 1440px boards; phone matches the 390px Phone boards.
 export default defineConfig({
   testDir: './tests/e2e',
@@ -17,9 +17,9 @@ export default defineConfig({
     launchOptions: { executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH || undefined },
   },
   webServer: {
-    command: 'bun scripts/serve-static.ts',
+    command: 'node .output/server/index.mjs',
     url: `http://127.0.0.1:${port}`,
-    env: { PORT: String(port) },
+    env: { NITRO_PORT: String(port), NITRO_HOST: '127.0.0.1' },
     reuseExistingServer: !process.env.CI,
   },
   projects: [

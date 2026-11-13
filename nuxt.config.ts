@@ -4,6 +4,8 @@
 // Set NUXT_PUBLIC_SITE_URL once the domain is chosen. An empty value counts as unset.
 const configuredUrl = process.env.NUXT_PUBLIC_SITE_URL?.trim()
 const siteUrl = configuredUrl || 'https://reeve.invalid'
+const onCloudflare = process.env.NITRO_PRESET?.startsWith('cloudflare') ?? false
+const purgeSchedule = '0 3 * * *'
 
 export default defineNuxtConfig({
   modules: [
@@ -17,6 +19,7 @@ export default defineNuxtConfig({
     '@nuxt/test-utils/module',
     '@nuxt/a11y',
     '@nuxt/hints',
+    '@nuxthub/core',
   ],
 
   devtools: { enabled: true },
@@ -39,18 +42,47 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      // Where the beta form posts. The sign-up API (NuxtHub) is added in its own PR.
+      // Where the beta form posts (server/api/beta.post.ts).
       betaEndpoint: '/api/beta',
+    },
+  },
+
+  // About five sign-up requests per IP address every ten minutes. The address is counted in memory for that
+  // window only and never stored or logged. On Workers each instance keeps its own count, so this slows
+  // abuse rather than stopping it. Cloudflare's own header is used there, because X-Forwarded-For can be forged.
+  routeRules: {
+    '/api/beta': {
+      security: {
+        rateLimiter: {
+          tokensPerInterval: 5,
+          interval: 600_000,
+          ipHeader: onCloudflare ? 'cf-connecting-ip' : undefined,
+        },
+      },
     },
   },
 
   compatibilityDate: '2026-11-12',
 
-  // Every page is prerendered. Server routes come later, for sign-up and payment.
+  // Every page is prerendered; only /api routes run on the server.
   nitro: {
     prerender: {
       crawlLinks: true,
       routes: ['/'],
+    },
+    experimental: { tasks: true },
+    // Retention for beta sign-up requests, daily at 03:00 UTC.
+    scheduledTasks: { [purgeSchedule]: ['beta:purge'] },
+    // Nitro runs the task when the Worker's Cron Trigger fires, but doesn't declare the trigger itself.
+    cloudflare: { wrangler: { triggers: { crons: [purgeSchedule] } } },
+  },
+
+  // NuxtHub: a local SQLite file in development and CI; Cloudflare D1 when built with
+  // NITRO_PRESET=cloudflare_module and NUXT_HUB_D1_DATABASE_ID set.
+  hub: {
+    db: {
+      dialect: 'sqlite',
+      connection: { databaseId: process.env.NUXT_HUB_D1_DATABASE_ID },
     },
   },
 

@@ -31,4 +31,4 @@ The chosen design is **bento citation**. Build from these boards and ignore the 
 
 ## Site settings
 
-`app/app.config.ts` holds the switch between Soon and Live (`launched`), the list of pages that exist (`builtPages`; the header and footer link only to these, so add a page's path in the PR that builds it), and the company name and number for the footer's legal line, which stays hidden until both are set.
+`app/app.config.ts` holds the switch between Soon and Live (`launched`), the list of pages that exist (`builtPages`; the header and footer link only to these, so add a page's path in the PR that builds it), and the company name and number for the footer's legal line, which stays hidden until both are set. `betaSignup` shows the beta form's fields; keep it off until the privacy page is built and `privacy.controller` and `privacy.contact` are set (a unit test enforces this).

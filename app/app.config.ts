@@ -8,6 +8,10 @@ export default defineAppConfig({
     // The beta sign-up form. Off until the sign-up API, its notice at the point of collection and the
     // privacy page exist; until then the beta card says why places are limited and shows no fields.
     betaSignup: false,
+    // Who is responsible for sign-up data, and where to write to see or delete it. Both are named in the
+    // notice beside the form; tests/unit/site-settings.test.ts refuses betaSignup without them and the
+    // privacy page.
+    privacy: { controller: '', contact: '' },
     // The Discord install link for Add to Discord on the launched site. Empty until the bot is public.
     discordInstallUrl: '',
     // The footer's company line. Left empty until the company is registered; the line is hidden until then.

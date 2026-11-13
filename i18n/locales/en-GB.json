@@ -228,7 +228,7 @@
     },
     "beta": {
       "why": "We're opening Reeve to a few servers at a time, so we can work closely with each one and act on what you tell us.",
-      "email": "We'll only email you about the beta. You can stop at any time.",
+      "email": "Use your own address. We'll only email you about the beta, and you can ask us to stop at {contact}.",
       "server": "Server name",
       "serverExample": "e.g. The Reading Room",
       "role": "Your role",
@@ -251,7 +251,10 @@
       "doneTitle": "You're on the list.",
       "doneText": "We'll email {email} when a place opens for {server}. Nothing else is sent until then.",
       "again": "Add another server",
-      "failed": "We couldn't send your request. Check your connection and try again."
+      "failed": "We couldn't send your request. Check your connection and try again.",
+      "notice": "{controller} uses these details only to run the beta you asked to join. We keep them until a place is offered or declined and for 30 days after, and delete them within a year of your request at the latest. They're stored with Cloudflare. To see, correct or delete them, email {contact}. You can also complain to the ICO.",
+      "noticeLink": "Read the privacy notice",
+      "honeypot": "Leave this empty"
     }
   }
 }

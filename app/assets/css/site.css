@@ -94,3 +94,4 @@
 
 /* A long reference chip wraps as text, with its brackets inline, rather than as a box beside them. */
 .rv-chip-ref { display: inline-block; max-width: 100%; }
+.rv-betaform-notice { margin: 0; font-size: var(--type-note-size); line-height: 1.45; color: var(--back-sub); }

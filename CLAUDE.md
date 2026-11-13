@@ -1,7 +1,7 @@
 # Reeve website
 
 The marketing and documentation site for Reeve (codename Warden), moderation for a single Discord community.
-Nuxt 4.6.4, Vue 3, TypeScript strict, Bun, Nuxt Content. Prerendered with `nuxt generate`.
+Nuxt 4.6.4, Vue 3, TypeScript strict, Bun, Nuxt Content. Pages are prerendered by `nuxt build`; only `/api` routes run on the server (NuxtHub, Cloudflare D1).
 British English everywhere: code comments, copy, docs, commit messages.
 
 The look is **Citation**, laid out as the **bento citation** boards. Read `design/README.md` before building anything visual.
@@ -17,7 +17,7 @@ The look is **Citation**, laid out as the **bento citation** boards. Read `desig
 | Unit and component tests (Vitest) | `bun run test` |
 | Build, then browser tests on the prerendered site at 1440px and 390px (Playwright) | `bun run test:e2e` |
 | Regenerate `app/assets/css/tokens.css` after `design/citation/tokens.json` changes | `bun run tokens` |
-| Static build | `bun run generate` |
+| Build (prerendered pages plus the `/api` server) | `bun run build` |
 | Everything CI runs | `bun run check` |
 
 Use Bun for every install and script. Never `npm`, `pnpm` or `yarn`. `bunfig.toml` pins exact versions on `bun add`.
@@ -34,9 +34,10 @@ Bun's own test runner can't host Nuxt component tests, so `bun run test` runs Vi
 | Agents | `nuxt-llms` builds `/llms.txt` from the docs |
 | Security | `nuxt-security` headers and CSP |
 | Dev checks | `@nuxt/a11y` (axe-core, plus a report on every prerendered route), `@nuxt/hints` |
+| Server | `@nuxthub/core` with Drizzle: `server/api/`, `server/db/` (schema and migrations), `server/tasks/` (retention). A local SQLite file in development and CI, Cloudflare D1 in production |
 | Styling | Plain CSS from the Citation tokens. No UI kit, no Tailwind, no CSS-in-JS |
 
-Later, when a page needs them: `@nuxt/scripts` (Stripe.js), `@nuxtjs/mcp-toolkit` (a docs MCP server), `nuxt-agent-discovery`, `@nuxthub/core` (the dashboard).
+Later, when a page needs them: `@nuxt/scripts` (Stripe.js), `@nuxtjs/mcp-toolkit` (a docs MCP server), `nuxt-agent-discovery`, the dashboard (on NuxtHub).
 
 ## Non-negotiables
 

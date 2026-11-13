@@ -6,7 +6,9 @@ const { t } = useI18n()
 const { betaEndpoint } = useRuntimeConfig().public
 const { reeve } = useAppConfig()
 
+const localePath = useLocalePath()
 const server = ref('')
+const website = ref('')
 const role = ref<'owner' | 'admin' | 'moderator'>('owner')
 const members = ref<'small' | 'medium' | 'large'>('small')
 const email = ref('')
@@ -21,7 +23,7 @@ async function submit() {
   try {
     await $fetch(betaEndpoint, {
       method: 'POST',
-      body: { server: server.value.trim(), role: role.value, members: members.value, email: email.value.trim() },
+      body: { server: server.value.trim(), role: role.value, members: members.value, email: email.value.trim(), website: website.value },
     })
     sent.value = { server: server.value.trim(), email: email.value.trim() }
     state.value = 'sent'
@@ -48,7 +50,7 @@ async function again() {
       <span class="rv-flip-backtitle">{{ title }}</span>
       <p>{{ t('home.beta.why') }}</p>
       <p v-if="reeve.betaSignup">
-        {{ t('home.beta.email') }}
+        {{ t('home.beta.email', reeve.privacy) }}
       </p>
       <p v-else>
         {{ t('home.cards.cta.soon.closed.note') }}
@@ -99,6 +101,21 @@ async function again() {
         maxlength="254"
         :placeholder="t('home.beta.emailExample')"
       ></label>
+      <!-- Hidden from people and assistive technology; only bots fill it in. -->
+      <label
+        class="rv-sr"
+        aria-hidden="true"
+      >{{ t('home.beta.honeypot') }}<input
+        v-model="website"
+        type="text"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+      ></label>
+      <p class="rv-betaform-notice">
+        {{ t('home.beta.notice', reeve.privacy) }}
+        <NuxtLink :to="localePath('/privacy')">{{ t('home.beta.noticeLink') }}</NuxtLink>
+      </p>
       <p
         v-if="state === 'failed'"
         class="rv-betaform-error"
