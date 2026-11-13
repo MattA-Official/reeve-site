@@ -7,7 +7,7 @@ paths:
 
 # Tests
 
-- `tests/unit/` runs in plain Node (fast, no Nuxt). `tests/nuxt/` runs in the Nuxt environment with `mountSuspended`. `tests/e2e/` runs plain Playwright against the prerendered site in `.output/public`, served by `scripts/serve-static.ts`.
+- `tests/unit/` runs in plain Node (fast, no Nuxt). `tests/nuxt/` runs in the Nuxt environment with `mountSuspended`. `tests/e2e/` runs plain Playwright against the built server (`node .output/server/index.mjs`), which serves the prerendered pages and the `/api` routes.
 - Query by role and accessible name (`getByRole('button', { name: 'Join the beta' })`), not by class or test id, so the tests double as accessibility checks.
 - Every page gets an e2e test in both projects (`desktop` 1440px, `phone` 390px).
 - Never skip, disable or loosen a test to get green.

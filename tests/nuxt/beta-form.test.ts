@@ -15,11 +15,11 @@ registerEndpoint('/api/beta', {
 })
 
 beforeEach(() => {
-  useAppConfig().reeve.betaSignup = true
+  Object.assign(useAppConfig().reeve, { betaSignup: true, privacy: { controller: 'Example Ltd', contact: 'privacy@example.com' } })
 })
 afterEach(() => {
   received.mockReset()
-  useAppConfig().reeve.betaSignup = false
+  Object.assign(useAppConfig().reeve, { betaSignup: false, privacy: { controller: '', contact: '' } })
 })
 
 async function fill(form: Awaited<ReturnType<typeof mountSuspended>>, server: string) {
@@ -50,10 +50,22 @@ describe('BetaForm', () => {
     expect(form.get('button[type="submit"]').text()).toBe('Request a place')
   })
 
+  it('says who uses the details, for how long, where they are stored and how to delete them', async () => {
+    const form = await mountSuspended(BetaForm, { props: { index: 9, title: 'Join the beta', kicker: 'private beta' } })
+    const notice = form.get('.rv-betaform-notice')
+    expect(notice.text()).toContain('Example Ltd uses these details only to run the beta you asked to join.')
+    expect(notice.text()).toContain('within a year of your request at the latest')
+    expect(notice.text()).toContain('complain to the ICO')
+    expect(notice.text()).toContain('Cloudflare')
+    expect(notice.text()).toContain('email privacy@example.com')
+    expect(notice.get('a').attributes('href')).toBe('/privacy')
+    expect(form.text()).toContain('you can ask us to stop at privacy@example.com')
+  })
+
   it('sends the request and says what happens next', async () => {
     const form = await mountSuspended(BetaForm, { props: { index: 9, title: 'Join the beta', kicker: 'private beta' } })
     await fill(form, 'The Reading Room')
-    expect(received).toHaveBeenCalledWith({ server: 'The Reading Room', role: 'admin', members: 'medium', email: 'mod@example.com' })
+    expect(received).toHaveBeenCalledWith({ server: 'The Reading Room', role: 'admin', members: 'medium', email: 'mod@example.com', trap: '' })
     const done = form.get('[role="status"]')
     expect(done.text()).toContain('You\'re on the list.')
     expect(done.text()).toContain('We\'ll email mod@example.com when a place opens for The Reading Room.')

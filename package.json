@@ -19,14 +19,17 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "tokens": "bun scripts/build-tokens.ts",
-    "test:e2e": "nuxt generate && playwright test",
-    "check": "bun run lint && bun run typecheck && bun run test && bun run generate"
+    "test:e2e": "nuxt build && playwright test",
+    "check": "bun run lint && bun run typecheck && bun run test && bun run build"
   },
   "dependencies": {
+    "@libsql/client": "0.18.0",
     "@nuxt/content": "3.16.2",
     "@nuxt/fonts": "1.2.0",
+    "@nuxthub/core": "0.10.12",
     "@nuxtjs/i18n": "10.6.0",
     "@nuxtjs/seo": "6.0.1",
+    "drizzle-orm": "0.45.4",
     "nuxt": "4.6.4",
     "nuxt-llms": "0.3.1",
     "nuxt-security": "2.7.0",
@@ -40,6 +43,7 @@
     "@nuxt/test-utils": "4.3.4",
     "@playwright/test": "1.65.0",
     "@vue/test-utils": "2.5.1",
+    "drizzle-kit": "0.31.11",
     "eslint": "10.14.0",
     "happy-dom": "21.0.4",
     "typescript": "6.0.3",

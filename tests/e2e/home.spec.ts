@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { gotoHydrated } from './hydrated'
 
 test('home page has one heading, the right language and its own title', async ({ page }) => {
   await page.goto('/')
@@ -8,7 +9,7 @@ test('home page has one heading, the right language and its own title', async ({
 })
 
 test('a card turns over, moves focus to its close button, and Escape turns it back', async ({ page }) => {
-  await page.goto('/')
+  await gotoHydrated(page, '/')
   await page.getByRole('button', { name: /^Cases/ }).click()
   // An open card's front is inert, so it leaves the accessibility tree; find it by what it controls.
   const front = page.locator('[aria-controls="bento-back-cases"]')
@@ -24,7 +25,7 @@ test('a card turns over, moves focus to its close button, and Escape turns it ba
 // Wide: the grid keeps its footprint. Phone: the open card spans both columns and pushes the rest down.
 // On both, no two items overlap.
 test('opening a card keeps every item clear of the others', async ({ page, isMobile }) => {
-  await page.goto('/')
+  await gotoHydrated(page, '/')
   const grid = page.getByRole('region', { name: 'What Reeve does' })
   const before = await grid.boundingBox()
   await page.getByRole('button', { name: /^AI moderation/ }).click()
@@ -58,7 +59,7 @@ test('no card front needs to scroll at this width, even before scripts run', asy
 })
 
 test('the hero opens the beta card, which collects nothing until sign-up opens', async ({ page }) => {
-  await page.goto('/')
+  await gotoHydrated(page, '/')
   await page.getByRole('button', { name: 'Read about the beta', exact: true }).click()
   const back = page.getByRole('region', { name: 'The private beta' })
   await expect(back.getByText('We\'re opening Reeve to a few servers at a time')).toBeVisible()

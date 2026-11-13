@@ -43,8 +43,13 @@ jobs:
       - name: Unit and component tests
         run: bun run test
 
-      - name: Static build
-        run: bun run generate
+      - name: Build for Cloudflare Workers
+        run: bun run build
+        env:
+          NITRO_PRESET: cloudflare_module
+
+      - name: Build
+        run: bun run build
 
       - name: Install Chromium for Playwright
         run: bunx playwright install --with-deps chromium

@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test'
 
 const port = 4173
 
-// Tests run against the prerendered site in .output/public, the files that ship.
+// Tests run against the built server in .output: the prerendered pages and the /api routes that ship.
 // Desktop matches the 1440px boards; phone matches the 390px Phone boards.
 export default defineConfig({
   testDir: './tests/e2e',
@@ -17,13 +17,14 @@ export default defineConfig({
     launchOptions: { executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH || undefined },
   },
   webServer: {
-    command: 'bun scripts/serve-static.ts',
+    command: 'node .output/server/index.mjs',
     url: `http://127.0.0.1:${port}`,
-    env: { PORT: String(port) },
+    env: { NITRO_PORT: String(port), NITRO_HOST: '127.0.0.1' },
     reuseExistingServer: !process.env.CI,
   },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } },
-    { name: 'phone', use: { ...devices['Desktop Chrome'], viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } },
+    // The API test doesn't depend on the viewport, so it runs once, well inside the rate limit.
+    { name: 'phone', testIgnore: /beta-api/, use: { ...devices['Desktop Chrome'], viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } },
   ],
 })
