@@ -54,6 +54,7 @@ export function useSiteLinks() {
   const built = (link: SiteLink) => reeve.builtPages.includes(link.to)
 
   return {
+    isBuilt: (path: string) => reeve.builtPages.includes(path),
     launched: computed(() => reeve.launched),
     header: computed(() => headerLinks.filter(built)),
     footer: computed(() => footerColumns(reeve.launched)

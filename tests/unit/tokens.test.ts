@@ -9,6 +9,8 @@ const siteCss = readFileSync(new URL('../../app/assets/css/site.css', import.met
 const defined = new Set([...tokensCss.matchAll(/^\s+(--[a-z0-9-]+):/gm)].map(m => m[1]))
 // Custom properties the ported stylesheet sets for itself (the tone variables).
 const local = new Set([...citationCss.matchAll(/(--[a-z0-9-]+):/g)].map(m => m[1]))
+// Custom properties FlipGrid sets inline on each bento item.
+for (const name of ['--bento-desk-col', '--bento-desk-row', '--bento-phone-col', '--bento-phone-row']) local.add(name)
 const used = (css: string) => [...new Set([...css.matchAll(/var\((--[a-z0-9-]+)/g)].map(m => m[1]))]
 
 describe('design tokens', () => {
