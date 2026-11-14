@@ -112,3 +112,14 @@
 .rv-dc-btn { cursor: default; }
 /* Contents links are navigation, so they get the full target height. */
 .rv-contents nav a { min-height: var(--target-min); }
+
+/* AI moderation (Site-Citation-AI): the names example in stage 2, the decision buttons on the override card,
+   and the numbered never-cards, which are a list. */
+.rv-ai-toggle { align-self: flex-start; min-height: var(--target-min); padding: 0; border: 0; background: transparent; color: var(--t-tag); font: inherit; font-size: var(--type-body-s-size); font-weight: 700; text-decoration: underline; cursor: pointer; }
+.rv-ai-pseudo { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-14) var(--space-16); border: 1px solid var(--t-border); border-radius: var(--radius-control); background: var(--bg); font-family: var(--font-mono); font-size: var(--type-note-size); line-height: 1.6; color: var(--ink); overflow-wrap: anywhere; }
+.rv-ai-pseudo-label { color: var(--muted); }
+.rv-ai-pseudo-label + .rv-ai-pseudo-label, .rv-ai-pseudo > span:nth-of-type(4) { padding-top: var(--space-6); }
+.rv-ai-pseudo-name { color: var(--t-tag); }
+.rv-ai-decide { height: auto; min-height: var(--target-min); cursor: pointer; }
+.rv-ai-never { margin: 0; padding: 0; list-style: none; }
+.rv-ai-limits { max-width: var(--prose-measure); }
