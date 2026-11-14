@@ -94,7 +94,7 @@
           "Report received · Open"
         ],
         "points": [
-          "Report from the message, a profile, or with /report voice",
+          "Report a message, a profile or voice activity, from the message or with /report",
           "The message and ten either side are saved, by default",
           "Repeat reports of the same message join one card",
           "The reporter is told: action taken, already handled, or no action needed"
@@ -286,6 +286,254 @@
         "title": "Still stuck?",
         "text": "Open a ticket in our support server.",
         "link": "Get support"
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "description": "How Reeve turns every moderation action into a numbered case, tells members what happened, and lets them report, appeal and raise concerns.",
+    "kicker": "how it works",
+    "heading": "How Reeve handles moderation",
+    "lead": "Every action becomes a numbered case. Members can report, appeal and raise concerns, and Reeve messages them with the outcome.",
+    "contents": {
+      "label": "on this page",
+      "nav": "On this page",
+      "flow": "From report to review",
+      "members": "What members see",
+      "tickets": "Tickets",
+      "team": "For your team"
+    },
+    "flow": {
+      "intro": "Select a step to see how it works.",
+      "gridLabel": "From report to review, step by step",
+      "cards": {
+        "report": {
+          "title": "Report",
+          "desc": "A member reports a message, a profile or someone's behaviour in a voice channel.",
+          "chips": [
+            "Report · Open"
+          ],
+          "link": "How reports work",
+          "points": [
+            "Report from the message, a profile, or with /report voice",
+            "The message and, by default, the ten either side are copied at once",
+            "Repeat reports about the same thing, made close together, join one card for your team",
+            "Every form asks which public rule applies, and Not sure is always an option"
+          ]
+        },
+        "case": {
+          "title": "Case",
+          "desc": "Every action becomes one numbered record.",
+          "chips": [
+            "#1043",
+            "Timeout · Rule 3"
+          ],
+          "link": "How cases work",
+          "points": [
+            "Records the action, the rule, and who took it: a person, AutoMod or Reeve's automated review",
+            "Actions taken directly in Discord are recorded too, and staff add the rule",
+            "Appeals and staff notes stay with the case",
+            "Case numbers are never reused"
+          ]
+        },
+        "notice": {
+          "title": "Notice",
+          "desc": "The member is told what happened, which rule, and what they can do next.",
+          "chips": [
+            "Rule cited by number"
+          ],
+          "points": [
+            "A heading that says what happened, in words",
+            "The public rule it cites, by number",
+            "When it ends, if it ends",
+            "Before a kick or a ban, the notice is sent first"
+          ]
+        },
+        "appeal": {
+          "title": "Appeal",
+          "desc": "Someone who wasn't involved decides.",
+          "chips": [
+            "Appeal this decision"
+          ],
+          "link": "How appeals work",
+          "points": [
+            "Warnings, timeouts, restrictions and bans can be appealed",
+            "Kicks can't, but the member can say a kick was a mistake",
+            "Nobody involved in the case decides the appeal",
+            "Automated actions can be appealed straight away"
+          ]
+        },
+        "concern": {
+          "title": "Concern",
+          "desc": "Ask admins to check how something was handled.",
+          "chips": [
+            "Raise a concern"
+          ],
+          "points": [
+            "Offered when an appeal is turned down, a report closes with no action, or after a kick",
+            "Goes to the staff who review concerns, admins by default",
+            "They record a finding: no issue, guidance given to the team, or decision changed"
+          ]
+        },
+        "digest": {
+          "title": "Monthly digest",
+          "desc": "Shows admins where rules and guidance may need work.",
+          "chips": [
+            "For admins"
+          ],
+          "points": [
+            "Appeals made and overturned, and concerns with their findings",
+            "Rules, AutoMod rules and AI rules where appeals keep being overturned",
+            "It points to what may need revising, and people decide what to change"
+          ]
+        }
+      }
+    },
+    "members": {
+      "intro": "Reeve writes to members in plain words, and cites the rule by its public number.",
+      "shape": {
+        "tag": "every notice",
+        "title": "The same shape, every time",
+        "points": [
+          "A heading that says what happened",
+          "Labelled lines: the rule, when it ends, the case",
+          "What they can do next, in a sentence",
+          "One row of actions"
+        ],
+        "note": "No emoji in member notices, and colour never carries the meaning on its own."
+      },
+      "views": {
+        "label": "Choose a view",
+        "member": "What the member sees",
+        "staff": "What your team sees"
+      },
+      "mock": {
+        "name": "Reeve",
+        "app": "APP",
+        "time": "Today at 14:02",
+        "exampleNote": "An example notice. Names and times are made up.",
+        "member": {
+          "title": "You have been timed out in The Reading Room",
+          "fields": [
+            [
+              "Rule",
+              "3 — Keep it civil"
+            ],
+            [
+              "Why",
+              "Repeated personal remarks in #general"
+            ],
+            [
+              "Until",
+              "Saturday, 14 November 2026 14:02 (in 24 hours)"
+            ],
+            [
+              "Reference",
+              "Case 1043"
+            ]
+          ],
+          "text": "If you think this was a mistake, you can ask for it to be looked at again.",
+          "buttons": [
+            "Appeal this decision"
+          ]
+        },
+        "staff": {
+          "title": "Case #1043 — Timeout (in force)",
+          "fields": [
+            [
+              "Member",
+              "{'@'}sam.r"
+            ],
+            [
+              "Rule",
+              "3 — Keep it civil"
+            ],
+            [
+              "Reason given to the member",
+              "Repeated personal remarks in #general"
+            ],
+            [
+              "Until",
+              "Saturday, 14 November 2026 14:02 (in 24 hours)"
+            ],
+            [
+              "By",
+              "{'@'}alex"
+            ],
+            [
+              "When",
+              "Today at 14:02"
+            ],
+            [
+              "Member told",
+              "yes"
+            ]
+          ],
+          "text": "",
+          "buttons": [
+            "Edit case",
+            "Open dossier",
+            "Revoke case"
+          ]
+        }
+      }
+    },
+    "tickets": {
+      "intro": "One channel, one panel, and a private thread for each conversation.",
+      "cards": {
+        "private": {
+          "tag": "private",
+          "title": "A private thread with the right staff",
+          "text": "Only the member, that category's staff and admins can see it. Staff can add someone if they need to, and bots are never added."
+        },
+        "forms": {
+          "tag": "forms",
+          "title": "Categories and short forms",
+          "text": "Members choose a category and answer up to five questions, so staff start with the facts."
+        },
+        "transcripts": {
+          "tag": "transcripts",
+          "title": "A transcript when it closes",
+          "text": "Each category sets how long its transcripts are kept. Safeguarding tickets and complaints about staff are kept for at least 3 years, Moderators and support staff can't see them: only the staff who handle them and server administrators can."
+        }
+      }
+    },
+    "team": {
+      "cards": {
+        "lookup": {
+          "tag": "look up",
+          "title": "/case and /record",
+          "text": "Look up a case, or a member's whole record, with one command."
+        },
+        "escalation": {
+          "tag": "escalation",
+          "title": "Suggested, never automatic",
+          "text": "Reeve suggests the next step for repeat problems. A person decides."
+        },
+        "permissions": {
+          "tag": "permissions",
+          "title": "Permissions by role",
+          "text": "Give each staff role the permissions it needs, starting from the moderator, senior and admin presets."
+        },
+        "staffReports": {
+          "tag": "staff reports",
+          "title": "Reports about staff",
+          "text": "Go to admins in their own forum by default, so moderators don't see them."
+        }
+      }
+    },
+    "band": {
+      "soon": {
+        "title": "Join the beta",
+        "closedTitle": "The private beta",
+        "text": "We're opening Reeve to a few servers at a time.",
+        "join": "Join the beta",
+        "pilot": "Read about the pilot"
+      },
+      "live": {
+        "title": "Add Reeve to your server",
+        "text": "Add Reeve, set up your channels and publish your rules.",
+        "pricing": "See pricing"
       }
     }
   }

@@ -85,6 +85,16 @@ function toggle(id: string) {
   else setOpen(id, `[data-back="${id}"]`)
 }
 
+// Escape closes the open card wherever focus is in the grid, not only on its back. Focus returns to the front
+// only if it was inside the card; otherwise it stays where the person put it.
+function onKeydown(event: KeyboardEvent) {
+  if (event.key !== 'Escape' || !open.value || event.defaultPrevented) return
+  if (event.target instanceof HTMLSelectElement) return
+  const id = open.value
+  const inside = grid.value?.querySelector(`[data-card="${id}"]`)?.contains(document.activeElement) ?? false
+  setOpen(null, inside ? `[data-front="${id}"]` : null)
+}
+
 // Opens a card from outside it (the hero's action); if it is already open, just moves focus to it.
 function openCard(id: string) {
   if (open.value === id) grid.value?.querySelector<HTMLElement>(`[data-back="${id}"]`)?.focus()
@@ -98,6 +108,7 @@ function openCard(id: string) {
     class="rv-flipgrid"
     :aria-label="label"
     :data-any-open="open ? '' : undefined"
+    @keydown="onKeydown"
   >
     <div
       v-for="(id, index) in items"

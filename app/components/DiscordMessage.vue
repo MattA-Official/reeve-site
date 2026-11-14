@@ -1,0 +1,83 @@
+<script setup lang="ts">
+// Citation Discord mock-up: a message from Reeve with one panel. Buttons are pictures of buttons, not controls.
+defineProps<{
+  name: string
+  app: string
+  time: string
+  title: string
+  fields: readonly (readonly [label: string, value: string])[]
+  text?: string
+  buttons: readonly string[]
+}>()
+</script>
+
+<template>
+  <div class="rv-dc">
+    <div
+      class="rv-dc-avatar"
+      aria-hidden="true"
+    >
+      <svg
+        class="rv-mark"
+        viewBox="0 0 48 48"
+        width="26"
+        height="26"
+        aria-hidden="true"
+      >
+        <path
+          d="M18 9 H11 V39 H18 M30 9 H37 V39 H30"
+          stroke="currentColor"
+          stroke-width="4"
+          fill="none"
+        />
+        <circle
+          cx="24"
+          cy="24"
+          r="3.5"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    <div class="rv-dc-main">
+      <div class="rv-dc-meta">
+        <span class="rv-dc-name">{{ name }}</span>
+        <span class="rv-dc-app">{{ app }}</span>
+        <span class="rv-dc-time">{{ time }}</span>
+      </div>
+      <div class="rv-dc-box">
+        <div class="rv-dc-body">
+          <p class="rv-dc-title">
+            {{ title }}
+          </p>
+          <div class="rv-dc-sep" />
+          <dl class="rv-dc-fields">
+            <template
+              v-for="[label, value] in fields"
+              :key="label"
+            >
+              <dt>{{ label }}</dt>
+              <dd>{{ value }}</dd>
+            </template>
+          </dl>
+          <p
+            v-if="text"
+            class="rv-dc-summary"
+          >
+            {{ text }}
+          </p>
+          <!-- Pictures of buttons: the notice's meaning is in its text, so they are hidden from screen readers. -->
+          <div
+            class="rv-dc-buttons"
+            aria-hidden="true"
+          >
+            <span
+              v-for="button in buttons"
+              :key="button"
+              class="rv-dc-btn"
+            >{{ button }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
