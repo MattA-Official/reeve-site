@@ -112,3 +112,18 @@
 .rv-dc-btn { cursor: default; }
 /* Contents links are navigation, so they get the full target height. */
 .rv-contents nav a { min-height: var(--target-min); }
+
+/* AI moderation (Site-Citation-AI): the names example in stage 2, the decision buttons on the override card,
+   and the numbered never-cards, which are a list. */
+.rv-ai-pseudo { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-14) var(--space-16); border: 1px solid var(--t-border); border-radius: var(--radius-control); background: var(--bg); font-family: var(--font-mono); font-size: var(--type-fine-size); line-height: 1.6; color: var(--ink); overflow-wrap: anywhere; }
+.rv-ai-pseudo-label { color: var(--muted); }
+.rv-ai-pseudo-label:not(:first-child) { padding-top: var(--space-6); }
+.rv-ai-pseudo-name { color: var(--t-tag); }
+.rv-ai-decide { height: auto; min-height: var(--target-min); cursor: pointer; }
+/* Pressed is more than a 1px border: a thicker one and a tick, with an empty text alternative. */
+.rv-ai-decide[aria-pressed="true"] { border-width: 2px; }
+.rv-ai-decide[aria-pressed="true"]::before { content: "\2713" / ""; margin-right: var(--space-6); }
+.rv-ai-never { margin: 0; padding: 0; list-style: none; }
+.rv-ai-limits { font-size: var(--type-intro-size); color: var(--t-fg); }
+.rv-ai-limits-list > li { font-size: var(--type-prose-size); }
+.rv-ai-never .rv-text { color: var(--t-fg); }

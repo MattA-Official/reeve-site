@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// Citation Discord mock-up: a message from Reeve with one panel. Buttons are pictures of buttons, not controls.
+// Citation Discord mock-up: a message from Reeve with one panel. `buttons` are pictures of buttons, not controls;
+// a page that lets visitors try the buttons passes real ones in the `actions` slot instead.
 defineProps<{
   name: string
   app: string
@@ -7,7 +8,9 @@ defineProps<{
   title: string
   fields: readonly (readonly [label: string, value: string])[]
   text?: string
-  buttons: readonly string[]
+  buttons?: readonly string[]
+  // The AI override card puts its summary line above the fields; the notices put it below.
+  textFirst?: boolean
 }>()
 </script>
 
@@ -49,6 +52,12 @@ defineProps<{
           <p class="rv-dc-title">
             {{ title }}
           </p>
+          <p
+            v-if="text && textFirst"
+            class="rv-dc-summary"
+          >
+            {{ text }}
+          </p>
           <div class="rv-dc-sep" />
           <dl class="rv-dc-fields">
             <template
@@ -60,13 +69,15 @@ defineProps<{
             </template>
           </dl>
           <p
-            v-if="text"
+            v-if="text && !textFirst"
             class="rv-dc-summary"
           >
             {{ text }}
           </p>
+          <slot name="actions" />
           <!-- Pictures of buttons: the notice's meaning is in its text, so they are hidden from screen readers. -->
           <div
+            v-if="buttons?.length"
             class="rv-dc-buttons"
             aria-hidden="true"
           >

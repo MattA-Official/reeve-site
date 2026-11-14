@@ -521,19 +521,236 @@
           "text": "Go to admins in their own forum by default, so moderators don't see them."
         }
       }
+    }
+  },
+  "band": {
+    "soon": {
+      "title": "Join the beta",
+      "closedTitle": "The private beta",
+      "text": "We're opening Reeve to a few servers at a time.",
+      "join": "Join the beta",
+      "pilot": "Read about the pilot"
     },
-    "band": {
-      "soon": {
-        "title": "Join the beta",
-        "closedTitle": "The private beta",
-        "text": "We're opening Reeve to a few servers at a time.",
-        "join": "Join the beta",
-        "pilot": "Read about the pilot"
+    "live": {
+      "title": "Add Reeve to your server",
+      "text": "Add Reeve, set up your channels and publish your rules.",
+      "pricing": "See pricing"
+    }
+  },
+  "ai": {
+    "title": "AI moderation",
+    "description": "How Reeve uses AI: a local model screens chat, a hosted model reviews only what it flags and reports, with names replaced first, and AI can only delete a message or time a member out for up to an hour.",
+    "kicker": "ai moderation",
+    "heading": "How Reeve uses AI",
+    "lead": "A model on our own servers screens members' messages. Only what it flags, and reports, go to a larger hosted model, with names replaced first. AI can take two small actions on its own, and only under rules your admins choose. Everything else is a person's decision, and a person can overrule every AI action.",
+    "contents": {
+      "label": "on this page",
+      "nav": "On this page",
+      "stages": "The three stages",
+      "limits": "What AI may do alone",
+      "override": "Override cards",
+      "never": "What AI never does",
+      "checks": "How we check it"
+    },
+    "stages": {
+      "heading": "The three stages",
+      "intro": "AI is off until an admin switches it on. When it is on, it works in three stages.",
+      "screen": {
+        "tag": "stage 1",
+        "title": "Local screen",
+        "text": [
+          "An open-weight safety model on our own servers reads members' messages in small batches: by default, every 10 messages or 30 seconds, in each channel.",
+          "If a batch looks fine, the result is discarded. We keep only daily counts, with nothing about who said what. No message leaves our servers at this stage."
+        ],
+        "chips": [
+          "Our own hardware",
+          "Members' messages only"
+        ]
       },
-      "live": {
-        "title": "Add Reeve to your server",
-        "text": "Add Reeve, set up your channels and publish your rules.",
-        "pricing": "See pricing"
+      "review": {
+        "tag": "stage 2",
+        "title": "Hosted review",
+        "text": [
+          "When the screen flags messages, or a member reports something, a larger model from Anthropic (Claude), outside the UK, reviews them, with up to 10 earlier messages for context. It can ask once for more: by default, up to 50 earlier messages.",
+          "Names, user IDs, mentions, links, emails and phone numbers are replaced first. A name typed in plain text for someone Reeve hasn't seen before can get through, and the words themselves are still sent. Attachments are never sent; the model only sees that there was an image or a file."
+        ],
+        "chips": [
+          "Names and IDs replaced first"
+        ],
+        "show": "Show what the model sees",
+        "example": {
+          "label": "An example of the names being hidden",
+          "before": "in your server",
+          "after": "what the model sees",
+          "lines": [
+            [
+              "sam.r",
+              "[MEMBER_A]",
+              "you clearly didn't read it, as usual"
+            ],
+            [
+              "jo.reads",
+              "[MEMBER_B]",
+              "please keep it civil"
+            ]
+          ]
+        }
+      },
+      "act": {
+        "tag": "stage 3",
+        "title": "Act, or ask a person",
+        "text": [
+          "For rules your admins have chosen, if the hosted review is sure enough to pass that rule's threshold, Reeve may act on its own, in one of two small ways. It never acts on staff, and by default not on anyone who joined a year ago or longer, or whose join date isn't known.",
+          "Anything else goes to a moderator as a suggestion, with the rule filled in for them to confirm or change."
+        ]
+      }
+    },
+    "limits": {
+      "heading": "What AI may do on its own",
+      "may": {
+        "tag": "on its own",
+        "title": "What AI may do",
+        "points": [
+          "Delete a message",
+          "Time the member out for up to one hour, as well as deleting the message"
+        ]
+      },
+      "never": {
+        "tag": "a person's decision",
+        "title": "What AI never does on its own",
+        "points": [
+          "Warnings",
+          "Timeouts longer than one hour",
+          "Kicks and bans",
+          "Role changes",
+          "Anything flagged as safeguarding, which goes only to admins trusted with it"
+        ]
+      },
+      "cards": {
+        "recorded": {
+          "tag": "recorded",
+          "title": "Every AI action is a case",
+          "text": "Marked as Reeve's automated review, with an override card for your moderators."
+        },
+        "control": {
+          "tag": "your call",
+          "title": "Your rules, your thresholds",
+          "text": "Choose which rules AI may act on and how sure it must be, or switch AI actions off at any time."
+        },
+        "members": {
+          "tag": "members",
+          "title": "Members are told",
+          "text": "The notice says automated moderation was involved. The member can say it was a mistake or appeal, and appeals against AI actions are marked as a priority and chased sooner."
+        }
+      }
+    },
+    "override": {
+      "heading": "Override cards",
+      "card": {
+        "tag": "override card",
+        "title": "A moderator can overrule every AI action in one click",
+        "points": [
+          "Uphold action keeps it and marks it reviewed",
+          "Reverse action lifts the timeout and tells the member, if they accept messages, sending them the words that were deleted, as a deleted message can't be put back",
+          "Change sanction opens the form so a moderator can choose another"
+        ],
+        "note": "Try the buttons on the card. Decisions are counted rule by rule. By default, once a rule has 10 decided actions in 30 days, if more than one in five were reversed or changed, it goes back to suggesting only until an admin switches it back."
+      },
+      "mock": {
+        "exampleNote": "An example override card. Names, numbers and times are made up.",
+        "name": "Reeve",
+        "app": "APP",
+        "time": "Today at 14:02",
+        "title": "LLM action #1051 · Rule 3 — {status}",
+        "fields": [
+          [
+            "Why Reeve acted",
+            "The rule is set to act, and the hosted review was sure enough to act on its own."
+          ],
+          [
+            "What Reeve did",
+            "Message deleted, timed out for an hour (Case #1051)"
+          ],
+          [
+            "Member",
+            "{'@'}sam.r"
+          ],
+          [
+            "Channel",
+            "#general"
+          ],
+          [
+            "Hosted review",
+            "Breach is likely under rule 3 (severity medium, confidence 92%)"
+          ]
+        ],
+        "text": "Reeve did this on its own. Uphold it, reverse it, or change the sanction.",
+        "label": "Decide on this action",
+        "buttons": {
+          "uphold": "Uphold action",
+          "reverse": "Reverse action",
+          "change": "Change sanction"
+        },
+        "status": {
+          "open": [
+            "Waiting for review",
+            "A moderator hasn't decided yet."
+          ],
+          "uphold": [
+            "Upheld",
+            "by {'@'}alex. The action stands, marked as reviewed."
+          ],
+          "reverse": [
+            "Reversed",
+            "by {'@'}alex. The timeout is lifted, and the member is told it was withdrawn and sent their words, if they accept messages."
+          ],
+          "change": [
+            "Sanction changed",
+            "Change sanction opens the moderation form. The new sanction replaces this one."
+          ]
+        },
+        "headings": {
+          "open": "Acted: message deleted, timed out for an hour. Waiting for review",
+          "uphold": "Upheld",
+          "reverse": "Reversed",
+          "change": "Sanction changed"
+        }
+      }
+    },
+    "never": {
+      "heading": "What AI never sees or does",
+      "points": [
+        "Ordinary chat never goes to Anthropic. Only flagged messages with the messages just before them, reports, and summaries of reports and appeals that a moderator asks for do.",
+        "Staff messages, ticket threads and channels left out of logging are never screened. A staff message can appear, labelled as staff, as context beside a flagged message. Reports about staff are never sent to a hosted model.",
+        "Safeguarding concerns, and messages under rules your admins keep from AI, are never sent on or acted on by AI. They go only to admins trusted with safeguarding, and the card shows no content. A member's report is different: the hosted model reviews it, with names replaced, even if it touches on safeguarding or falls under a rule kept from AI, unless it is about staff.",
+        "If the local model is down, screening pauses and Discord's AutoMod carries on. Reeve never falls back to sending all chat to a hosted model.",
+        "Attachments never go to a hosted model. It sees only that a message had an image or a file.",
+        "For each hosted review, Reeve keeps a fingerprint of the prompt, by default for 12 months, never the prompt itself."
+      ]
+    },
+    "checks": {
+      "heading": "How we check it works",
+      "cards": {
+        "before": {
+          "tag": "before",
+          "title": "Suggestions first",
+          "text": "AI actions stay off until an admin switches them on for a rule. Until then Reeve only suggests, so you can see how it does on your server first."
+        },
+        "after": {
+          "tag": "after",
+          "title": "Reversals are tracked",
+          "text": "We count how often moderators reverse or change AI actions, rule by rule. A rule reversed too often goes back to suggesting only."
+        },
+        "monthly": {
+          "tag": "monthly",
+          "title": "A digest for admins",
+          "text": "Each month, admins see which rules, AutoMod rules and AI rules had two or more decisions overturned on appeal, so they know where to look."
+        }
+      },
+      "limits": {
+        "tag": "limits we are honest about",
+        "text": "AI makes mistakes, including mistakes that fall harder on some groups than others. Reeve keeps those mistakes small, visible and reversible; it cannot promise that every assessment is fair. Fairness depends on the people moderating, and Reeve gives them records and checks so they can show their working.",
+        "link": "Read the AI transparency statement"
       }
     }
   }

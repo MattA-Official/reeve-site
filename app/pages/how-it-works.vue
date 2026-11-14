@@ -5,7 +5,6 @@ import type { Chip } from '~/components/FlipCard.vue'
 
 const { t, tm, rt } = useI18n()
 const localePath = useLocalePath()
-const { reeve } = useAppConfig()
 const { isBuilt } = useSiteLinks()
 
 useSeoMeta({
@@ -44,14 +43,6 @@ const tickets = [
   { id: 'transcripts', tone: 'special' },
 ] as const
 const team = ['lookup', 'escalation', 'permissions', 'staffReports'] as const
-
-// The closing band offers only what exists: a sign-up page, the pilot page, the install link, pricing.
-const live = computed(() => reeve.launched)
-const signupOpen = computed(() => reeve.betaSignup && isBuilt('/sign-up'))
-const bandTitle = computed(() => {
-  if (live.value) return t('howItWorks.band.live.title')
-  return signupOpen.value ? t('howItWorks.band.soon.title') : t('howItWorks.band.soon.closedTitle')
-})
 </script>
 
 <template>
@@ -273,51 +264,6 @@ const bandTitle = computed(() => {
       </div>
     </section>
 
-    <section
-      class="rv-band"
-      aria-labelledby="band-heading"
-    >
-      <div class="rv-band-copy">
-        <h2
-          id="band-heading"
-          class="rv-title rv-title-2xl"
-        >
-          {{ bandTitle }}
-        </h2>
-        <p>{{ live ? t('howItWorks.band.live.text') : t('howItWorks.band.soon.text') }}</p>
-      </div>
-      <div class="rv-band-actions">
-        <template v-if="live">
-          <a
-            v-if="reeve.discordInstallUrl"
-            class="rv-btn rv-btn-dark"
-            :href="reeve.discordInstallUrl"
-          >{{ t('header.addToDiscord') }}</a>
-          <NuxtLink
-            v-if="isBuilt('/pricing')"
-            class="rv-btn rv-btn-ghost"
-            :to="localePath('/pricing')"
-          >
-            {{ t('howItWorks.band.live.pricing') }}
-          </NuxtLink>
-        </template>
-        <template v-else>
-          <NuxtLink
-            v-if="signupOpen"
-            class="rv-btn rv-btn-dark"
-            :to="localePath('/sign-up')"
-          >
-            {{ t('howItWorks.band.soon.join') }}
-          </NuxtLink>
-          <NuxtLink
-            v-if="isBuilt('/pilot')"
-            class="rv-btn rv-btn-ghost"
-            :to="localePath('/pilot')"
-          >
-            {{ t('howItWorks.band.soon.pilot') }}
-          </NuxtLink>
-        </template>
-      </div>
-    </section>
+    <CtaBand />
   </main>
 </template>
