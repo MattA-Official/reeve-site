@@ -226,7 +226,7 @@ const checkCards = ['before', 'after', 'monthly'] as const
             :name="t('ai.override.mock.name')"
             :app="t('ai.override.mock.app')"
             :time="t('ai.override.mock.time')"
-            :title="t('ai.override.mock.title')"
+            :title="t('ai.override.mock.title', { status: t(`ai.override.mock.headings.${decision ?? 'open'}`) })"
             :fields="lists('ai.override.mock.fields') as [string, string][]"
             :text="t('ai.override.mock.text')"
             text-first

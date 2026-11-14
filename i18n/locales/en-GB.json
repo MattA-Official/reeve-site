@@ -661,7 +661,7 @@
         "name": "Reeve",
         "app": "APP",
         "time": "Today at 14:02",
-        "title": "LLM action #1051 · Rule 3 — Acted: message deleted, timed out for an hour. Waiting for review",
+        "title": "LLM action #1051 · Rule 3 — {status}",
         "fields": [
           [
             "Why Reeve acted",
@@ -708,6 +708,12 @@
             "Sanction changed",
             "Change sanction opens the moderation form. The new sanction replaces this one."
           ]
+        },
+        "headings": {
+          "open": "Acted: message deleted, timed out for an hour. Waiting for review",
+          "uphold": "Upheld",
+          "reverse": "Reversed",
+          "change": "Sanction changed"
         }
       }
     },
@@ -716,7 +722,7 @@
       "points": [
         "Ordinary chat never goes to Anthropic. Only flagged messages with the messages just before them, reports, and summaries of reports and appeals that a moderator asks for do.",
         "Staff messages, ticket threads and channels left out of logging are never screened. A staff message can appear, labelled as staff, as context beside a flagged message. Reports about staff are never sent to a hosted model.",
-        "Safeguarding concerns the local screen finds are never sent on or acted on. They go only to admins trusted with safeguarding, and the card shows no content. A member's report is different: the hosted model reviews it, with names replaced, even if it touches on safeguarding, unless it is about staff.",
+        "Safeguarding concerns, and messages under rules your admins keep from AI, are never sent on or acted on by AI. They go only to admins trusted with safeguarding, and the card shows no content. A member's report is different: the hosted model reviews it, with names replaced, even if it touches on safeguarding or falls under a rule kept from AI, unless it is about staff.",
         "If the local model is down, screening pauses and Discord's AutoMod carries on. Reeve never falls back to sending all chat to a hosted model.",
         "Attachments never go to a hosted model. It sees only that a message had an image or a file.",
         "For each hosted review, Reeve keeps a fingerprint of the prompt, by default for 12 months, never the prompt itself."

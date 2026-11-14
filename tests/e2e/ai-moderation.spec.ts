@@ -55,6 +55,7 @@ test('the override card buttons show what each decision does', async ({ page }) 
   await expect(uphold).toHaveAttribute('aria-pressed', 'true')
   await expect(reverse).toHaveAttribute('aria-pressed', 'false')
   await expect(page.getByRole('status').filter({ hasText: 'Upheld' })).toBeVisible()
+  await expect(page.getByText('LLM action #1051 · Rule 3 — Upheld', { exact: true })).toBeVisible()
 })
 
 test('nothing on the page scrolls sideways', async ({ page }) => {
