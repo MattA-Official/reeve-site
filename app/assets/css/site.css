@@ -101,3 +101,14 @@
 .rv-error-link { margin-top: auto; min-height: var(--target-min); display: inline-flex; align-items: center; align-self: flex-start; font-weight: 700; }
 .rv-tone-accent .rv-error-link { color: var(--accent-fg); }
 .rv-tone-card .rv-error-link { color: var(--link); }
+
+/* How it works (Site-Citation-HowItWorks): the view switch above the Discord mock-up. */
+.rv-hiw-views { min-width: 0; display: flex; flex-direction: column; gap: var(--space-12); }
+.rv-hiw-views .rv-seg { align-self: flex-start; }
+.rv-hiw-mock { margin: 0; }
+.rv-dc p { margin: 0; }
+.rv-band .rv-title { color: var(--accent-fg); }
+/* The mock-up's buttons are pictures, so they don't look clickable. */
+.rv-dc-btn { cursor: default; }
+/* Contents links are navigation, so they get the full target height. */
+.rv-contents nav a { min-height: var(--target-min); }

@@ -29,7 +29,11 @@ const chipClass = (chip: Chip) => (chip.kind && chip.kind !== 'plain' ? `rv-chip
 function onKeydown(event: KeyboardEvent) {
   // Escape in a select closes its list, not the card.
   if (event.target instanceof HTMLSelectElement) return
-  if (event.key === 'Escape' && props.open) emit('toggle')
+  if (event.key === 'Escape' && props.open) {
+    // Marks the key as handled, so the grid doesn't close the card a second time.
+    event.preventDefault()
+    emit('toggle')
+  }
 }
 </script>
 

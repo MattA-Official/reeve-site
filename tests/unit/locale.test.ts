@@ -18,4 +18,11 @@ describe('en-GB locale', () => {
       expect(text).not.toContain('!')
     }
   })
+
+  // vue-i18n reads a bare | as a plural separator and shows only the first part, so a literal pipe is {'|'}.
+  it('writes every literal pipe as {\'|\'}', () => {
+    for (const text of strings(enGB)) {
+      expect(text.replaceAll('{\'|\'}', '')).not.toContain('|')
+    }
+  })
 })
