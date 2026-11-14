@@ -107,12 +107,12 @@ const checkCards = ['before', 'after', 'monthly'] as const
           <template v-if="stage.id === 'review'">
             <button
               type="button"
-              class="rv-ai-toggle"
+              class="rv-textbtn"
               aria-controls="ai-example"
               :aria-expanded="showExample ? 'true' : 'false'"
               @click="showExample = !showExample"
             >
-              {{ showExample ? t('ai.stages.review.hide') : t('ai.stages.review.show') }}
+              {{ t('ai.stages.review.show') }}
             </button>
             <div
               id="ai-example"
@@ -161,7 +161,7 @@ const checkCards = ['before', 'after', 'monthly'] as const
           <h3 class="rv-title rv-title-l">
             {{ t(`ai.limits.${key}.title`) }}
           </h3>
-          <ol class="rv-list">
+          <ol class="rv-list rv-ai-limits-list">
             <li
               v-for="point in strings(`ai.limits.${key}.points`)"
               :key="point"
@@ -229,6 +229,7 @@ const checkCards = ['before', 'after', 'monthly'] as const
             :title="t('ai.override.mock.title')"
             :fields="lists('ai.override.mock.fields') as [string, string][]"
             :text="t('ai.override.mock.text')"
+            text-first
           >
             <template #actions>
               <div
@@ -251,7 +252,7 @@ const checkCards = ['before', 'after', 'monthly'] as const
                 class="rv-dc-result"
                 role="status"
               >
-                <b>{{ status[0] }}</b><span>{{ status[1] }}</span>
+                <b>{{ status[0] }}.</b>{{ ' ' }}<span>{{ status[1] }}</span>
               </p>
             </template>
           </DiscordMessage>
@@ -273,7 +274,10 @@ const checkCards = ['before', 'after', 'monthly'] as const
           aria-hidden="true"
         >[4]</span>{{ t('ai.never.heading') }}
       </h2>
-      <ol class="rv-grid rv-ai-never">
+      <ol
+        class="rv-grid rv-ai-never"
+        role="list"
+      >
         <li
           v-for="(point, index) in strings('ai.never.points')"
           :key="point"

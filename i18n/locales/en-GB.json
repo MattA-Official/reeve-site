@@ -539,10 +539,10 @@
   },
   "ai": {
     "title": "AI moderation",
-    "description": "How Reeve uses AI: a local model screens chat, a hosted model reviews only what it flags and reports, with names hidden, and AI can only delete a message or time a member out for up to an hour.",
+    "description": "How Reeve uses AI: a local model screens chat, a hosted model reviews only what it flags and reports, with names replaced first, and AI can only delete a message or time a member out for up to an hour.",
     "kicker": "ai moderation",
     "heading": "How Reeve uses AI",
-    "lead": "A model on our own servers screens members' messages. Only what it flags, and reports, go to a larger hosted model, with names hidden. AI can take two small actions on its own, and only under rules your admins choose. Everything else is a person's decision, and a person can reverse every AI action.",
+    "lead": "A model on our own servers screens members' messages. Only what it flags, and reports, go to a larger hosted model, with names replaced first. AI can take two small actions on its own, and only under rules your admins choose. Everything else is a person's decision, and a person can overrule every AI action.",
     "contents": {
       "label": "on this page",
       "nav": "On this page",
@@ -559,7 +559,7 @@
         "tag": "stage 1",
         "title": "Local screen",
         "text": [
-          "An open-weight safety model on our own servers reads members' messages in small batches: every 10 messages, or every 30 seconds, in each channel.",
+          "An open-weight safety model on our own servers reads members' messages in small batches: by default, every 10 messages or 30 seconds, in each channel.",
           "If a batch looks fine, the result is discarded. We keep only daily counts, with nothing about who said what. No message leaves our servers at this stage."
         ],
         "chips": [
@@ -571,14 +571,13 @@
         "tag": "stage 2",
         "title": "Hosted review",
         "text": [
-          "When the screen flags messages, or a member reports something, a larger model from Anthropic (Claude) reviews them, with up to 10 earlier messages for context. It can ask once for more, up to 50 earlier messages.",
-          "Names, user IDs, mentions and profile links are replaced first. Attachments are never sent; the model only sees that there was an image or a file."
+          "When the screen flags messages, or a member reports something, a larger model from Anthropic (Claude), outside the UK, reviews them, with up to 10 earlier messages for context. It can ask once for more: by default, up to 50 earlier messages.",
+          "Names, user IDs, mentions, links, emails and phone numbers are replaced first. A name typed in plain text for someone Reeve hasn't seen before can get through, and the words themselves are still sent. Attachments are never sent; the model only sees that there was an image or a file."
         ],
         "chips": [
-          "Names hidden first"
+          "Names and IDs replaced first"
         ],
         "show": "Show what the model sees",
-        "hide": "Hide the example",
         "example": {
           "label": "An example of the names being hidden",
           "before": "in your server",
@@ -601,7 +600,7 @@
         "tag": "stage 3",
         "title": "Act, or ask a person",
         "text": [
-          "For rules your admins have chosen, if the hosted review is sure enough to pass that rule's threshold, Reeve may act on its own, in one of two small ways. It never acts on staff, and by default not on anyone who joined more than a year ago.",
+          "For rules your admins have chosen, if the hosted review is sure enough to pass that rule's threshold, Reeve may act on its own, in one of two small ways. It never acts on staff, and by default not on anyone who joined a year ago or longer, or whose join date isn't known.",
           "Anything else goes to a moderator as a suggestion, with the rule filled in for them to confirm or change."
         ]
       }
@@ -641,7 +640,7 @@
         "members": {
           "tag": "members",
           "title": "Members are told",
-          "text": "The notice says automated moderation was involved. The member can say it was a mistake or appeal, and appeals against AI actions are looked at first."
+          "text": "The notice says automated moderation was involved. The member can say it was a mistake or appeal, and appeals against AI actions are marked as a priority and chased sooner."
         }
       }
     },
@@ -649,20 +648,20 @@
       "heading": "Override cards",
       "card": {
         "tag": "override card",
-        "title": "Every AI action can be overruled in one click",
+        "title": "A moderator can overrule every AI action in one click",
         "points": [
           "Uphold action keeps it and marks it reviewed",
-          "Reverse action lifts the timeout and sends the member the words that were deleted, as a deleted message can't be put back",
+          "Reverse action lifts the timeout and tells the member, if they accept messages, sending them the words that were deleted, as a deleted message can't be put back",
           "Change sanction opens the form so a moderator can choose another"
         ],
-        "note": "Try the buttons on the card. Decisions are counted rule by rule. Once a rule has 10 decided actions in 30 days, if more than one in five were reversed or changed, it goes back to suggesting only until an admin switches it back."
+        "note": "Try the buttons on the card. Decisions are counted rule by rule. By default, once a rule has 10 decided actions in 30 days, if more than one in five were reversed or changed, it goes back to suggesting only until an admin switches it back."
       },
       "mock": {
         "exampleNote": "An example override card. Names, numbers and times are made up.",
         "name": "Reeve",
         "app": "APP",
         "time": "Today at 14:02",
-        "title": "LLM action #1051 · Rule 3 — Acted: message deleted, timed out for an hour",
+        "title": "LLM action #1051 · Rule 3 — Acted: message deleted, timed out for an hour. Waiting for review",
         "fields": [
           [
             "Why Reeve acted",
@@ -703,7 +702,7 @@
           ],
           "reverse": [
             "Reversed",
-            "by {'@'}alex. The timeout is lifted, and the member is told it was withdrawn and sent their words."
+            "by {'@'}alex. The timeout is lifted, and the member is told it was withdrawn and sent their words, if they accept messages."
           ],
           "change": [
             "Sanction changed",
@@ -715,12 +714,12 @@
     "never": {
       "heading": "What AI never sees or does",
       "points": [
-        "Ordinary chat never goes to Anthropic. Only flagged messages with the messages just before them, reports, and summaries a moderator asks for do.",
-        "Staff messages, ticket threads and channels left out of logging are never screened. Reports about staff are never sent to a hosted model.",
-        "Safeguarding flags are never acted on automatically. They go only to admins trusted with safeguarding, and the card shows no content.",
+        "Ordinary chat never goes to Anthropic. Only flagged messages with the messages just before them, reports, and summaries of reports and appeals that a moderator asks for do.",
+        "Staff messages, ticket threads and channels left out of logging are never screened. A staff message can appear, labelled as staff, as context beside a flagged message. Reports about staff are never sent to a hosted model.",
+        "Safeguarding concerns the local screen finds are never sent on or acted on. They go only to admins trusted with safeguarding, and the card shows no content. A member's report is different: the hosted model reviews it, with names replaced, even if it touches on safeguarding, unless it is about staff.",
         "If the local model is down, screening pauses and Discord's AutoMod carries on. Reeve never falls back to sending all chat to a hosted model.",
         "Attachments never go to a hosted model. It sees only that a message had an image or a file.",
-        "For each hosted review, Reeve keeps a fingerprint of the prompt for 12 months, never the prompt itself."
+        "For each hosted review, Reeve keeps a fingerprint of the prompt, by default for 12 months, never the prompt itself."
       ]
     },
     "checks": {
@@ -739,7 +738,7 @@
         "monthly": {
           "tag": "monthly",
           "title": "A digest for admins",
-          "text": "Each month, admins see which rules, AutoMod settings and AI rules had decisions overturned on appeal, so they know where to look."
+          "text": "Each month, admins see which rules, AutoMod rules and AI rules had two or more decisions overturned on appeal, so they know where to look."
         }
       },
       "limits": {

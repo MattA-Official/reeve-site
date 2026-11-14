@@ -9,6 +9,8 @@ defineProps<{
   fields: readonly (readonly [label: string, value: string])[]
   text?: string
   buttons?: readonly string[]
+  // The AI override card puts its summary line above the fields; the notices put it below.
+  textFirst?: boolean
 }>()
 </script>
 
@@ -50,6 +52,12 @@ defineProps<{
           <p class="rv-dc-title">
             {{ title }}
           </p>
+          <p
+            v-if="text && textFirst"
+            class="rv-dc-summary"
+          >
+            {{ text }}
+          </p>
           <div class="rv-dc-sep" />
           <dl class="rv-dc-fields">
             <template
@@ -61,7 +69,7 @@ defineProps<{
             </template>
           </dl>
           <p
-            v-if="text"
+            v-if="text && !textFirst"
             class="rv-dc-summary"
           >
             {{ text }}

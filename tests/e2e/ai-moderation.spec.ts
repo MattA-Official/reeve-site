@@ -35,10 +35,9 @@ test('the example shows the names the hosted model sees, then hides them again',
   await expect(toggle).toHaveAttribute('aria-expanded', 'false')
   await expect(example).toBeHidden()
   await toggle.click()
-  const hide = page.getByRole('button', { name: 'Hide the example' })
-  await expect(hide).toHaveAttribute('aria-expanded', 'true')
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true')
   await expect(example).toContainText('[MEMBER_A]: you clearly didn\'t read it, as usual')
-  await hide.click()
+  await toggle.click()
   await expect(example).toBeHidden()
 })
 
