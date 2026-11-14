@@ -47,7 +47,7 @@ const team = ['lookup', 'escalation', 'permissions', 'staffReports'] as const
 
 // The closing band offers only what exists: a sign-up page, the pilot page, the install link, pricing.
 const live = computed(() => reeve.launched)
-const signupOpen = computed(() => reeve.betaSignup && isBuilt('/signup'))
+const signupOpen = computed(() => reeve.betaSignup && isBuilt('/sign-up'))
 const bandTitle = computed(() => {
   if (live.value) return t('howItWorks.band.live.title')
   return signupOpen.value ? t('howItWorks.band.soon.title') : t('howItWorks.band.soon.closedTitle')
@@ -87,7 +87,10 @@ const bandTitle = computed(() => {
         id="flow-heading"
         class="rv-h2"
       >
-        <span class="rv-h2-num">[1]</span>{{ t('howItWorks.contents.flow') }}
+        <span
+          class="rv-h2-num"
+          aria-hidden="true"
+        >[1]</span>{{ t('howItWorks.contents.flow') }}
       </h2>
       <p class="rv-intro">
         {{ t('howItWorks.flow.intro') }}
@@ -140,7 +143,10 @@ const bandTitle = computed(() => {
         id="members-heading"
         class="rv-h2"
       >
-        <span class="rv-h2-num">[2]</span>{{ t('howItWorks.contents.members') }}
+        <span
+          class="rv-h2-num"
+          aria-hidden="true"
+        >[2]</span>{{ t('howItWorks.contents.members') }}
       </h2>
       <p class="rv-intro">
         {{ t('howItWorks.members.intro') }}
@@ -211,7 +217,10 @@ const bandTitle = computed(() => {
         id="tickets-heading"
         class="rv-h2"
       >
-        <span class="rv-h2-num">[3]</span>{{ t('howItWorks.contents.tickets') }}
+        <span
+          class="rv-h2-num"
+          aria-hidden="true"
+        >[3]</span>{{ t('howItWorks.contents.tickets') }}
       </h2>
       <p class="rv-intro">
         {{ t('howItWorks.tickets.intro') }}
@@ -242,7 +251,10 @@ const bandTitle = computed(() => {
         id="team-heading"
         class="rv-h2"
       >
-        <span class="rv-h2-num">[4]</span>{{ t('howItWorks.contents.team') }}
+        <span
+          class="rv-h2-num"
+          aria-hidden="true"
+        >[4]</span>{{ t('howItWorks.contents.team') }}
       </h2>
       <div class="rv-grid rv-grid-4">
         <div
@@ -293,7 +305,7 @@ const bandTitle = computed(() => {
           <NuxtLink
             v-if="signupOpen"
             class="rv-btn rv-btn-dark"
-            :to="localePath('/signup')"
+            :to="localePath('/sign-up')"
           >
             {{ t('howItWorks.band.soon.join') }}
           </NuxtLink>

@@ -180,7 +180,7 @@
           "Raise a concern"
         ],
         "points": [
-          "Offered when an appeal is upheld, a report closes with no action, or a member is kicked",
+          "Offered when an appeal is turned down, a report closes with no action, or a member is kicked",
           "Goes only to admins who weren't involved",
           "Admins record a finding: no issue, guidance given, or decision changed",
           "A monthly digest shows where guidance needs work"
@@ -494,7 +494,7 @@
         "transcripts": {
           "tag": "transcripts",
           "title": "A transcript when it closes",
-          "text": "Each category sets how long its transcripts are kept. Safeguarding tickets and complaints about staff are kept for at least 3 years, Moderators and support staff can't see them: only the staff who handle them and server administrators can."
+          "text": "Each category sets how long its transcripts are kept. Safeguarding tickets and complaints about staff are kept for at least 3 years. Moderators and support staff can't see them; only the staff who handle them and server administrators can."
         }
       }
     },

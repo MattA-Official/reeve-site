@@ -9,7 +9,7 @@ test('how it works has one heading, its title, and a contents list that jumps to
   await expect(contents.getByRole('link')).toHaveText(['From report to review', 'What members see', 'Tickets', 'For your team'])
   await contents.getByRole('link', { name: 'Tickets' }).click()
   await expect(page).toHaveURL(/#tickets$/)
-  await expect(page.getByRole('heading', { level: 2, name: /Tickets/ })).toBeInViewport()
+  await expect(page.getByRole('heading', { level: 2, name: 'Tickets', exact: true })).toBeInViewport()
 })
 
 test('the header links to the page and marks it as current', async ({ page, isMobile }) => {
