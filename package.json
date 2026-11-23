@@ -34,7 +34,7 @@
     "nuxt-llms": "0.3.1",
     "nuxt-security": "2.7.0",
     "vue": "3.5.45",
-    "vue-router": "5.5.0"
+    "vue-router": "5.5.1"
   },
   "devDependencies": {
     "@nuxt/a11y": "1.0.0-alpha.1",
